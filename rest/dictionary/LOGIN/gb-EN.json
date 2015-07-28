@@ -7,7 +7,7 @@
             "LOGIN_SUCCESS": "Successfully logged in.",
             "LOGIN_WAIT": "Wait, logging in.",
             "LOGGED_OUT": "Logged out successfully.",
-            "LOGOUT": "log out",            
+            "LOGOUT": "Log out",            
             "NOT_LOGGED_IN": "Not logged in.",
             "NO_SESSION": "No session. Log in.",
             "PASSWORD": "Password",
