@@ -1,0 +1,75 @@
+<div class="scrollable">
+  <div class="scrollable-content">
+    <div class="list-group">
+      <div class="list-group-item">
+        <h1>{{'NEWS.TITLE'| translate}}
+          <div class="pull-right">
+            <i class="fa fa-newspaper-o feature-icon text-primary"></i>
+          </div><br><small>{{'NEWS.SUBTITLE'| translate}}</small></h1></div>      
+      <div ng-hide="isInitialized" 
+           class="manual-loading scrollable scrollable-content" 
+           style="background-color: white;">
+        <i class="fa fa-spinner fa-spin loading-spinner"></i>
+      </div>
+
+      <div ng-show="isInitialized">
+
+        <div ng-show="$root.isLoggedIn" class="list-group-item">
+          <a href="#mcc.overlayEditorNews" toggle="on" class="btn btn-primary">{{'NEWS.ADD'| translate}}</a>        
+          <a href="" class="btn btn-danger" ng-click="refresh()">{{'REFRESH'| translate}}</a>
+        </div>
+
+        <div ng-repeat="(key, value) in news.data | groupBy: 'year' | reverse" mccPagination="atTheEnd">
+          <h2 class="list-group-item news-sub-title">{{value[0].year}}</h2>
+          <a ng-repeat="item in value" 
+             ng-class="{draft: !item.published}"
+             ng-show="item.published || $parent.isLoggedIn" 
+             class="list-group-item hand" href="#news/{{item.id}}">
+            <div>
+              <b>{{item.title}}</b>
+              <i class="fa fa-chevron-right pull-right"></i>  
+              <div class="ingress">
+                <i>
+                  {{'NEWS.PUBLISHED'| translate}} {{item.time| date:"EEE dd.MM.yyyy HH:mm:ss" : "UTC"}}
+                  <span ng-show="item.edited > item.time">
+                    <br>      
+                    {{'MODIFIED'| translate}} {{item.edited| date:"EEE dd.MM.yyyy HH:mm:ss" : "UTC"}}      
+                  </span>
+                </i>
+                <span class="pull-right">
+                  <i>
+                    <span ng-show="item.numberOfComments > 1"><b>{{item.numberOfComments}}</b> {{'NEWS.COMMENT_N'| translate}}</span>
+                    <span ng-show="item.numberOfComments == 1"><b>{{item.numberOfComments}}</b> {{'NEWS.COMMENT_1'| translate}}</span>
+                    <span ng-show="item.numberOfComments == 0">{{'NEWS.COMMENT_0'| translate}}</span>     
+                  </i>
+                </span>
+              </div>
+            </div>
+            <div ng-show="item.ingress.length > 0 && $index < 6">
+              <div ng-bind-html="item.ingress" class="ingress">
+
+              </div>                    
+              <b>{{'NEWS.READ_MORE'| translate}}!</b>            
+              <i class="fa fa-chevron-right pull-right"></i>
+            </div>
+          </a>      
+        </div>
+
+        <div ng-show="news.pagination.isLast" class="list-group-item text-center">
+          <b>{{'NEWS.ALL_FETCHED'| translate}}</b>        
+        </div>
+
+        <div ng-show="loadInProgress" class="list-group-item text-center">
+          <b>{{'NEWS.FETCHING_OLDER'| translate}}</b>
+        </div>
+
+      </div>
+
+    </div>
+  </div>           
+</div>
+
+<div mcc-news-editor="newNews"
+     mcc-news-new
+     mcc-news-save-cb="addedNew">
+</div>

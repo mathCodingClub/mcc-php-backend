@@ -1,0 +1,143 @@
+<div class="scrollable">
+  <div class="scrollable-content">
+    <div class="list-group">
+      <div class="list-group-item">
+        <h1>{{news.title}}
+          <span class="pull-right">
+            <i class="fa fa-newspaper-o feature-icon text-primary"></i>
+          </span><br>
+          <small>
+            {{'NEWS.PUBLISHED'| translate}} {{news.time| date:"EEE dd.MM.yyyy HH:mm:ss" : "UTC"}}
+            <span ng-show="news.edited > news.time">
+              <br>      
+              {{'MODIFIED'| translate}} {{news.edited| date:"EEE dd.MM.yyyy HH:mm:ss" : "UTC"}}      
+            </span>
+          </small>
+        </h1>
+      </div>
+      
+      <div ng-hide="isInitialized" 
+           class="manual-loading scrollable scrollable-content" 
+           style="background-color: white;">
+        <i class="fa fa-spinner fa-spin loading-spinner"></i>
+      </div>
+
+      <div ng-show="isInitialized">
+
+        <div ng-show="$root.isLoggedIn" class="list-group-item">
+          <a href="#mcc.overlayEditorNews" toggle="on" class="btn btn-primary">{{'NEWS.MODIFY'| translate}}</a>                  
+        </div>
+
+        <div class="list-group-item media">
+          <span class="pull-left" ng-show="previous"><i class="fa fa-caret-left"></i> <a href="#news/{{previous.id}}">{{"PREVIOUS"| translate}}</a></span>        
+          <span class="pull-right" ng-show=next"><a href="#news/{{next.id}}">{{"NEXT"| translate}}</a> <i class="fa fa-caret-right"></i></span>        
+        </div>     
+
+        <div class="list-group-item">          
+          <div class="media-body news nice-width" mcc-angular-expr="news.contents" angular-expr-wrap="div">
+          </div>
+        </div>
+
+        <div class="list-group-item bg-yellow">
+          <h2 class="news-sub-title">{{"NEWS.COMMENTS"| translate}}</h2>
+        </div>
+
+        <div ng-show="comments.length == 0" class="list-group-item">
+          {{"NEWS.COMMENT_0_SEND"| translate}}
+        </div>
+
+        <div ng-repeat="item in comments" class="list-group-item">
+          <div class="nice-width">
+            <b>{{item.name}}</b> {{"SENT"| translate}} <b>{{item.time| date:"EEE dd.MM.yyyy HH:mm:ss" : "UTC"}}</b>
+            <p class="comment">
+              {{item.contents}}
+            </p>
+            <p class="comment-reply" ng-show="item.reply.length > 0">
+              <i class="fa fa-caret-right"></i> {{item.reply}}
+            </p>
+            <div ng-show="$root.isLoggedIn" style="max-width: 700px;">            
+              <p>
+                <b>{{'NEWS.REPLY'| translate}}</b>
+                <textarea          
+                  bs-form-control
+                  cols="80"
+                  rows="5"
+                  label=""
+                  ng-model="item.reply"                
+                  placeholder="{{'NEWS.REPLY'| translate}}"
+                  /></textarea>
+                <br>
+              <p>
+                <a href="" class="btn btn-primary" ng-click="postReply($index)">{{'NEWS.SEND_REPLY'| translate}}</a>      
+              </p>
+              <p>
+                <a href="" class="btn btn-danger" ng-click="deleteComment(item.id)">{{'NEWS.DELETE_COMMENT'| translate}}</a>      
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="list-group-item">
+          <h2>{{'NEWS.SEND_COMMENT_TITLE'| translate}}</h2>
+          <div class="nice-width">
+            <b>{{'YOUR_NAME'| translate}}</b>
+            <input 
+              bs-form-control
+              type="text" 
+              label=""
+              ng-model="comment.name"                 
+              placeholder="{{'YOUR_NAME'| translate}}"
+              />
+
+            <b>{{'YOUR_EMAIL'| translate}} ({{'NEWS.NOT_PUBLISHED'| translate}})</b>
+            <input 
+              bs-form-control
+              type="text" 
+              label=""
+              ng-model="comment.email"                 
+              placeholder="{{'YOUR_EMAIL'| translate}} ({{'NEWS.NOT_PUBLISHED'| translate}})"
+              />
+
+            <b>{{'NEWS.COMMENT'| translate}}</b>
+            <textarea          
+              bs-form-control
+              cols="80"
+              rows="10"
+              label=""
+              ng-model="comment.contents"                
+              placeholder="{{'NEWS.COMMENT'| translate}}"
+              /></textarea>
+            <br>
+            <p>
+              <span class="btn btn-primary" ng-click="postComment()">{{"SEND"| translate}}</span>
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="list-group-item media">
+
+          <span class="pull-left" ng-show="previous"><i class="fa fa-caret-left"></i> <a href="#news/{{previous.id}}">{{"PREVIOUS"| translate}}</a></span>        
+
+          <span class="pull-right" ng-show="next"><a href="#news/{{next.id}}">{{"NEXT"| translate}}</a> <i class="fa fa-caret-right"></i></span>        
+
+        </div>
+        <div class="list-group-item">
+
+          <div class="text-center">
+            <i class="fa fa-caret-up"></i> 
+            <a href="#news">{{"ALL"| translate}}</a>
+            <i class="fa fa-caret-up"></i>
+          </div>
+
+        </div>             
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mcc-news-editor="news"   
+     mcc-news-delete-cb="afterDelete">
+</div>

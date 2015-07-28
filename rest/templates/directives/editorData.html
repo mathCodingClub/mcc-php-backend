@@ -1,0 +1,99 @@
+<div class="scrollable-content scrollable">  
+
+  <div class="nice-width editor-container" ng-init="">    
+    <div ng-show="show == 'editor'">
+      <h3 class="overlay-title">Muokkaa tietoja</h3>                          
+
+      <p>
+        <b>{{"TITLE"| translate}}</b>
+        <input 
+          bs-form-control
+          type="title" 
+          label=""
+          ng-model="data.title"                 
+          placeholder="{{'TITLE'| translate}}"
+          size="200"
+          />
+      </p>
+
+      <p>
+        <b>{{"CONTENTS"| translate}}</b>
+      <div ui-ace="{         
+           useWrapMode: true,
+           mode: 'html',
+           theme: 'github',
+           firstLineNumber: 1      
+           }"         
+           id="aceEditor_content"
+           ng-show="editorACE"
+           mcc-file-drop-zone
+           file-drop-zone-on-drop="fileReceived"         
+           mcc-bind-keys="ctrl-s"
+           bind-keys-ctrl-s="save"
+           ng-model="data.content"
+           style="height: 600px; text-align: left; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+
+      <div ng-hide="editorACE">
+
+        <textarea style="width: 100%; height: 600px;"
+                  class="my-bs-style"
+                  mcc-file-drop-zone                  
+                  file-drop-zone-on-drop="fileReceived"
+                  file-drop-zone-param="{resize: 400, type: 'ingress'}"
+                  mcc-bind-keys="ctrl-s"
+                  bind-keys-ctrl-s="save"
+                  ng-model="data.content"
+                  ></textarea>
+      </div>
+
+      <p>
+
+      <p>
+
+        <span class="btn btn-primary" ng-click="save()">{{"SAVE"| translate}}</span>
+
+        <span class="btn btn-info" toggle="off" bubble target="mcc.overlayEditorData">{{"CLOSE"| translate}}</span>
+        
+        <span class="btn btn-primary" ng-click="editorACE=!editorACE">{{"ACE_TEXTAREA"| translate}}</span>
+
+      </p>
+    </div>
+    <!-- figure editor -->
+    <div ng-show="show == 'figure'">
+      <h3 class="overlay-title">Muokkaa kuvaa</h3>
+      <input 
+        bs-form-control
+        type="title" 
+        label="Maksimi dimensio"
+        ng-model="figure.maxdim"                 
+        placeholder="Maksimi dimensio"
+        size="200"
+        />
+
+      <input 
+        bs-form-control
+        type="title" 
+        label="Kuvan nimi"
+        ng-model="figure.name"                 
+        placeholder="Kuvan nimi"
+        size="200"
+        />
+
+      <canvas id="figureEditorCanvas" width="750" height="500"               
+              mcc-canvas-follow-mouse="mousePosition"              
+              ng-click="setCropPoint()"></canvas>                
+      </canvas>
+
+      <p>
+
+        <span class="btn btn-primary" ng-click="saveFigure()">{{"SAVE"| translate}}</span>
+
+        <span class="btn btn-danger" ng-click="cancelFigure()">{{"CANCEL"| translate}}</span>
+      </p>
+    </div>
+
+
+  </div>
+
+</div>

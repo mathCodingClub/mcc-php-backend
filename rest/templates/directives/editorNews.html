@@ -1,0 +1,151 @@
+<div overlay="mcc.overlayEditorNews">
+
+  <div class="scrollable-content scrollable">  
+
+    <div class="nice-width editor-container">    
+      <h3 class="overlay-title" ng-hide="modify">{{"NEWS.ADD"| translate}}</h3>                      
+      <h3 class="overlay-title" ng-show="modify">{{"NEWS.MODIFY"| translate}}</h3>          
+
+      <div ng-show="show == 'editor'">
+        <p>
+          <b>{{"NEWS.IS_PUBLISHED"| translate}}</b><br><br>
+
+          <span class="center-table">
+            <switch ng-model="news.published"></switch>
+          </span>
+
+        </p>
+
+        <p>
+          <b>{{"TITLE"| translate}}</b>
+          <input 
+            bs-form-control
+            type="text" 
+            label=""
+            ng-model="news.title"                 
+            placeholder="{{'TITLE'| translate}}"
+            size="200"
+            />
+        </p>
+
+        <p>
+          <b>{{"NEWS.INGRESS"| translate}}</b>
+        <div ui-ace="{         
+             useWrapMode: true,
+             mode: 'html',
+             theme: 'github',
+             firstLineNumber: 1
+             }"         
+             ng-show="editorACE"
+             id="aceEditor_ingress"
+             mcc-file-drop-zone
+             file-drop-zone-on-drop="fileReceived"
+             file-drop-zone-param="{resize: 400, type: 'ingress'}"
+             mcc-bind-keys="ctrl-s"
+             bind-keys-ctrl-s="save"
+             ng-model="news.ingress"
+             style="height: 160px; text-align: left; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+        <div ng-hide="editorACE">
+
+          <textarea style="width: 100%; height: 160px;"
+                    mcc-file-drop-zone
+                    class="my-bs-style"
+                    file-drop-zone-on-drop="fileReceived"
+                    file-drop-zone-param="{resize: 400, type: 'ingress'}"
+                    mcc-bind-keys="ctrl-s"
+                    bind-keys-ctrl-s="save"
+                    ng-model="news.ingress"
+                    ></textarea>
+        </div>
+        </p>
+
+        <p>
+          <b>{{"CONTENTS"| translate}}</b>
+        <div ui-ace="{         
+             useWrapMode: true,
+             mode: 'html',
+             theme: 'github',
+             firstLineNumber: 1      
+             }"         
+             id="aceEditor_contents"
+             ng-show="editorACE"
+             mcc-file-drop-zone
+             file-drop-zone-on-drop="fileReceived"
+             file-drop-zone-param="{resize: 1000, type: 'contents'}"
+             mcc-bind-keys="ctrl-s"
+             bind-keys-ctrl-s="save"
+             ng-model="news.contents"
+             style="height: 350px; text-align: left; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+        <div ng-hide="editorACE">
+          <textarea style="width: 100%; height: 350px;"
+                    mcc-file-drop-zone
+                    class="my-bs-style"
+                    file-drop-zone-on-drop="fileReceived"
+                    file-drop-zone-param="{resize: 1000, type: 'contents'}"
+                    mcc-bind-keys="ctrl-s"
+                    bind-keys-ctrl-s="save"
+                    ng-model="news.contents"
+                    ></textarea>
+        </div>
+        <p>
+
+        <p>
+
+          <span class="btn btn-warning" ng-click="setCurrentTime()">{{"NEWS.SET_CURRENT_TIME"| translate}}</span>
+
+          <span class="btn btn-primary" ng-click="save()">{{"SAVE"| translate}}</span>          
+
+          <span class="btn btn-info" toggle="off" bubble target="mcc.overlayEditorNews">{{"CLOSE"| translate}}</span>
+
+          <span class="btn btn-danger" ng-click="del(news.id)" ng-show="modify">{{"DELETE"| translate}}</span>
+
+          <span class="btn btn-primary" ng-click="swapEditorType()">{{"ACE_TEXTAREA"| translate}}</span>
+
+          <br><br>
+          <b>{{"NOTE"| translate}}!</b> {{"DROP_IMAGE_SUPPORT  "| translate}}
+
+        </p>  
+      </div>
+
+      <div ng-show="show == 'figure'">      
+
+        <input 
+          bs-form-control
+          type="title" 
+          label="Maksimi dimensio"
+          ng-model="figure.maxdim"                 
+          placeholder="Maksimi dimensio"
+          size="200"
+          />
+
+        <input 
+          bs-form-control
+          type="title" 
+          label="Kuvan nimi"
+          ng-model="figure.name"                 
+          placeholder="Kuvan nimi"
+          size="200"
+          />
+
+        <canvas id="figureEditorCanvasNews" width="750" height="500"               
+                mcc-canvas-follow-mouse="mousePosition"                      
+                ng-click="setCropPoint()"></canvas>                
+        </canvas>
+
+        <p>
+
+          <span class="btn btn-primary" ng-click="saveFigure()">{{"SAVE"| translate}}</span>
+
+          <span class="btn btn-danger" ng-click="cancelFigure()">{{"CANCEL"| translate}}</span>
+
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

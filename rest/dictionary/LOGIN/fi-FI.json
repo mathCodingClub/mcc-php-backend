@@ -1,0 +1,16 @@
+{
+  "LOGIN":
+          {
+            "LOGGED_IN_AS": "Kirjautuneena",
+            "LOGIN": "Kirjaudu",
+            "LOGIN_FALSE_CREDENTIALS": "Väärä käyttäjätunnus tai salasana. Kirjautuminen ei onnistunut.",
+            "LOGIN_SUCCESS": "Sisäänkirjautuminen onnistui.",
+            "LOGIN_WAIT": "Odota, kirjaudutaan sisään",
+            "LOGGED_OUT": "Uloskirjautuminen onnistui.",
+            "LOGOUT": "Kirjaudu ulos",            
+            "NOT_LOGGED_IN": "Ei sisäänkirjautuneena.",
+            "NO_SESSION": "Ei sessiota. Kirjaudu sisään.",
+            "PASSWORD": "Salasana",
+            "USERNAME": "Käyttäjätunnus"
+          }
+}
