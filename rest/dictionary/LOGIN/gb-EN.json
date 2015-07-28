@@ -1,0 +1,16 @@
+{
+  "LOGIN":
+          {
+            "LOGGED_IN_AS": "Logged in as",
+            "LOGIN": "Log in",
+            "LOGIN_FALSE_CREDENTIALS": "False credentials. Login failed.",
+            "LOGIN_SUCCESS": "Successfully logged in.",
+            "LOGIN_WAIT": "Wait, logging in.",
+            "LOGGED_OUT": "Logged out successfully.",
+            "LOGOUT": "log out",            
+            "NOT_LOGGED_IN": "Not logged in.",
+            "NO_SESSION": "No session. Log in.",
+            "PASSWORD": "Username",
+            "USERNAME": "Password"
+          }
+}
