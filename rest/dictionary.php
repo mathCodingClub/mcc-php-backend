@@ -26,7 +26,7 @@ class dictionary extends \mcc\obj\slimClass\service  {
     // load here all matching mcc dict
     $mccDict = glob(__DIR__ . "/dictionary/*/$lang.json");
     $dict = array();
-    foreach ($mccDict as $file) {
+    foreach ($mccDict as $file) {      
       $dict = array_merge($dict, json_decode(file_get_contents($file), true));
     }
     if (!is_null($this->dict)) {

@@ -24,7 +24,7 @@
           <a ng-repeat="item in value" 
              ng-class="{draft: !item.published}"
              ng-show="item.published || $parent.isLoggedIn" 
-             class="list-group-item hand" href="#news/{{item.id}}">
+             class="list-group-item hand" href="news/{{item.id}}">
             <div>
               <b>{{item.title}}</b>
               <i class="fa fa-chevron-right pull-right"></i>  

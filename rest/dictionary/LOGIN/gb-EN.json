@@ -10,7 +10,7 @@
             "LOGOUT": "log out",            
             "NOT_LOGGED_IN": "Not logged in.",
             "NO_SESSION": "No session. Log in.",
-            "PASSWORD": "Username",
-            "USERNAME": "Password"
+            "PASSWORD": "Password",
+            "USERNAME": "Username"
           }
 }
