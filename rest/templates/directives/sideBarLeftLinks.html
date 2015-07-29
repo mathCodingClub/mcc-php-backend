@@ -1,0 +1,44 @@
+<!-- NO RECURSION YET -->
+<div ng-repeat="link in links">
+
+  <a ng-click="click(link)" 
+     ng-show="show(link)" 
+     ng-class="{'active-area' : $root.activeArea == link.link || $root.activeArea == link.path}"               
+     class="list-group-item hand">
+    <span mcc-angular-expr="link.title"></span>
+    <span class="pull-right">
+      <span ng-hide="link.logo">
+        <i class="fa fa-chevron-right" ng-hide="hasChildLinks(link)"></i>
+        <i class="fa fa-plus" ng-show="hasChildLinks(link) && ($root.activeArea != link.path)"></i>
+        <i class="fa fa-chevron-down" ng-show="hasChildLinks(link) && ($root.activeArea == link.path)"></i>
+      </span>
+      <span ng-show="link.logo && link.logo.css">
+        <i class="{{link.logo.css}}"></i>
+      </span>
+      <span ng-show="link.logo && link.logo.img">
+        <img src="{{link.logo.img}}">
+      </span>
+    </span>
+  </a>
+
+  <div ng-repeat="sublink in link.contents">    
+    <a ng-click="click(sublink, link)" 
+       ng-class="{'active-area-sub' : $root.activeAreaSub == sublink.link}"     
+       ng-show="show(sublink, link)"               
+       class="list-group-item area-sub hand">      
+      <span mcc-angular-expr="sublink.title"></span>
+      <span class="pull-right">
+        <span ng-hide="sublink.logo">
+          <i class="fa fa-chevron-right" ng-hide="hasChildLinks(sublink)"></i>
+        </span>
+        <span ng-show="sublink.logo && sublink.logo.css">
+          <i class="{{sublink.logo.css}}"></i>
+        </span>
+        <span ng-show="sublink.logo && sublink.logo.img">
+          <img src="{{sublink.logo.img}}">
+        </span>
+      </span>
+    </a>
+  </div>   
+
+</div>
