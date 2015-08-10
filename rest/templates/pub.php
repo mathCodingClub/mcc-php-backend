@@ -7,18 +7,30 @@ class pub extends \mcc\obj\slimClass\service {
   public function getCodepagecontainer($code) {
     $this->setCT(self::CT_HTML);
     print '<div mcc-code-page="' . $code . '"></div>';
-  }
-
+  }  
+  
   public function getCodepages($code) {
-    
-    $data = \mcc\obj\data\services\data::getByCode($code);
+    try {
+      $data = \mcc\obj\data\services\data::getByCode($code);
+    } catch (\Exception $e) {
+      $title = '{{"DATA.DOES_NOT_EXIST" | translate}}';
+      $subtitle = '';
+      $logo = 'fa-cog';      
+      print \mcc\obj\templates\mobileAngularUI::contentHeader($title, $logo, $subtitle, true);
+      print '<button class="btn btn-primary" ng-show="$root.isLoggedIn" mcc-code-page-create="' . $code . 
+          '" ng-click="create()">{{"CREATE" | translate}} \'' . $code . '\'</button>';
+      print \mcc\obj\templates\mobileAngularUI::contentFooter(true);
+      print \mcc\obj\templates\mobileAngularUI::codeEditor();
+
+      return;
+    }
     $content = $data->getcontent();
     $this->setCT(self::CT_HTML);
     if (\mcc\obj\templates\annotations::hasAnnotation('BLANK', $content)) {
       print $content;
       return;
-    }    
-    
+    }
+
     $title = \mcc\obj\templates\annotations::getValue('TITLE', $content);
     $subtitle = \mcc\obj\templates\annotations::getValue('SUBTITLE', $content, null);
     $logo = \mcc\obj\templates\annotations::getValue('LOGO', $content, 'fa-bike');
@@ -37,8 +49,8 @@ class pub extends \mcc\obj\slimClass\service {
     print \mcc\obj\templates\mobileAngularUI::contentFooter($hasContainer, !is_null($controller));
     print \mcc\obj\templates\mobileAngularUI::codeEditor();
   }
-  
-  public function getDirectives($dir){
+
+  public function getDirectives($dir) {
     $this->setCT(self::CT_HTML);
     print file_get_contents(__DIR__ . '/directives/' . $dir . '.html');
   }

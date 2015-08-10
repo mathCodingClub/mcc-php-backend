@@ -1,0 +1,44 @@
+<div class="scrollable" 
+     ng-init="isInitialized = false;"
+     mcc-loading-var="isInitialized"
+     mcc-ajax-scope-var="ajax"
+     mcc-ajax-scope="rest/private/data/all/titles">
+  <div class="scrollable-content">
+    <div class="list-group">
+      <div class="list-group-item">
+        <h1>{{'DATA.ADMIN_TITLE'| translate}}
+          <span class="pull-right">
+            <i class="fa fa-cog feature-icon text-primary"></i>
+          </span>
+      </div>      
+      <div ng-hide="isInitialized" 
+           class="manual-loading scrollable scrollable-content" 
+           style="background-color: white;">
+        <i class="fa fa-spinner fa-spin loading-spinner"></i>
+      </div>
+
+      <div ng-show="isInitialized">
+
+        <div class="list-group-item">
+          Add new
+        </div>
+
+        <div ng-repeat="(key, value) in ajax.data">
+
+          <a class="list-group-item hand" ng-click="showCodeEditor(value.code)">
+            <b>{{value.code}}:</b> {{value.title}}
+            <i class="fa fa-chevron-right pull-right"></i>
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+  </div>           
+</div>
+
+<div overlay="mcc.overlayEditorData">
+  <div mcc-editor-data
+       overlay-data="dataObject">
+  </div>
+</div>

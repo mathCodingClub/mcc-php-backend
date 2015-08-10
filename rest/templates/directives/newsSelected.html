@@ -30,7 +30,7 @@
 
         <div class="list-group-item media">
           <span class="pull-left" ng-show="previous"><i class="fa fa-caret-left"></i> <a href="news/{{previous.id}}">{{"PREVIOUS"| translate}}</a></span>        
-          <span class="pull-right" ng-show=next"><a href="news/{{next.id}}">{{"NEXT"| translate}}</a> <i class="fa fa-caret-right"></i></span>        
+          <span class="pull-right" ng-show="next"><a href="news/{{next.id}}">{{"NEXT"| translate}}</a> <i class="fa fa-caret-right"></i></span>        
         </div>     
 
         <div class="list-group-item">          
@@ -138,6 +138,6 @@
   </div>
 </div>
 
-<div mcc-news-editor="news"   
-     mcc-news-delete-cb="afterDelete">
+<div mcc-editor-news="news"   
+     delete-cb="afterDelete">
 </div>

@@ -2,11 +2,13 @@
 
   <div class="scrollable-content scrollable">  
 
-    <div class="nice-width editor-container">    
-      <h3 class="overlay-title" ng-hide="modify">{{"NEWS.ADD"| translate}}</h3>                      
-      <h3 class="overlay-title" ng-show="modify">{{"NEWS.MODIFY"| translate}}</h3>          
+    <div class="nice-width editor-container">          
+
+      <!-- EDITOR -->
 
       <div ng-show="show == 'editor'">
+        <h3 class="overlay-title" ng-hide="modify">{{"NEWS.ADD"| translate}}</h3>                      
+        <h3 class="overlay-title" ng-show="modify">{{"NEWS.MODIFY"| translate}}</h3>          
         <p>
           <b>{{"NEWS.IS_PUBLISHED"| translate}}</b><br><br>
 
@@ -28,80 +30,84 @@
             />
         </p>
 
-        <p>
+        <div>
           <b>{{"NEWS.INGRESS"| translate}}</b>
-        <div ui-ace="{         
-             useWrapMode: true,
-             mode: 'html',
-             theme: 'github',
-             firstLineNumber: 1
-             }"         
-             ng-show="editorACE"
-             id="aceEditor_ingress"
-             mcc-file-drop-zone
-             file-drop-zone-on-drop="fileReceived"
-             file-drop-zone-param="{resize: 400, type: 'ingress'}"
-             mcc-bind-keys="ctrl-s"
-             bind-keys-ctrl-s="save"
-             ng-model="news.ingress"
-             style="height: 160px; text-align: left; border: 1px solid #ccc; border-radius: 4px;">
-        </div>
-        <div ng-hide="editorACE">
+          <div ui-ace="{         
+               useWrapMode: true,
+               mode: 'html',
+               theme: 'github',
+               firstLineNumber: 1
+               }"         
+               ng-show="editorACE"
+               id="aceEditor_ingress"
+               mcc-file-drop-zone
+               file-drop-zone-on-drop="fileReceived"
+               file-drop-zone-param="figureParam.ingres"
+               mcc-bind-keys="ctrl-s"
+               bind-keys-ctrl-s="save"
+               ng-model="news.ingress"
+               style="height: 160px; text-align: left; border: 1px solid #ccc; border-radius: 4px;">
+          </div>
+          <div ng-hide="editorACE">
 
-          <textarea style="width: 100%; height: 160px;"
-                    mcc-file-drop-zone
-                    class="my-bs-style"
-                    file-drop-zone-on-drop="fileReceived"
-                    file-drop-zone-param="{resize: 400, type: 'ingress'}"
-                    mcc-bind-keys="ctrl-s"
-                    bind-keys-ctrl-s="save"
-                    ng-model="news.ingress"
-                    ></textarea>
+            <textarea style="width: 100%; height: 160px;"
+                      mcc-file-drop-zone
+                      class="my-bs-style"
+                      file-drop-zone-on-drop="fileReceived"
+                      file-drop-zone-param="figureParam.ingres"
+                      mcc-bind-keys="ctrl-s"
+                      bind-keys-ctrl-s="save"
+                      ng-model="news.ingress"
+                      ></textarea>
+          </div>
         </div>
-        </p>
 
-        <p>
+        <div>
           <b>{{"CONTENTS"| translate}}</b>
-        <div ui-ace="{         
-             useWrapMode: true,
-             mode: 'html',
-             theme: 'github',
-             firstLineNumber: 1      
-             }"         
-             id="aceEditor_contents"
-             ng-show="editorACE"
-             mcc-file-drop-zone
-             file-drop-zone-on-drop="fileReceived"
-             file-drop-zone-param="{resize: 1000, type: 'contents'}"
-             mcc-bind-keys="ctrl-s"
-             bind-keys-ctrl-s="save"
-             ng-model="news.contents"
-             style="height: 350px; text-align: left; border: 1px solid #ccc; border-radius: 4px;">
+          <div ui-ace="{         
+               useWrapMode: true,
+               mode: 'html',
+               theme: 'github',
+               firstLineNumber: 1      
+               }"         
+               id="aceEditor_contents"
+               ng-show="editorACE"
+               mcc-file-drop-zone
+               file-drop-zone-on-drop="fileReceived"
+               file-drop-zone-param="figureParam.contents"
+               mcc-bind-keys="ctrl-s,ctrl-w"
+               bind-keys-ctrl-s="save"
+               bind-keys-ctrl-w="cancel"
+               ng-model="news.contents"
+               style="height: 350px; text-align: left; border: 1px solid #ccc; border-radius: 4px;">
+          </div>
+          <div ng-hide="editorACE">
+            <textarea style="width: 100%; height: 350px;"
+                      mcc-file-drop-zone
+                      class="my-bs-style"
+                      file-drop-zone-on-drop="fileReceived"
+                      file-drop-zone-param="figureParam.contents"
+                      mcc-bind-keys="ctrl-s,ctrl-w"
+                      bind-keys-ctrl-s="save"
+                      bind-keys-ctrl-w="cancel"
+                      ng-model="news.contents"
+                      ></textarea>
+          </div>
         </div>
-        <div ng-hide="editorACE">
-          <textarea style="width: 100%; height: 350px;"
-                    mcc-file-drop-zone
-                    class="my-bs-style"
-                    file-drop-zone-on-drop="fileReceived"
-                    file-drop-zone-param="{resize: 1000, type: 'contents'}"
-                    mcc-bind-keys="ctrl-s"
-                    bind-keys-ctrl-s="save"
-                    ng-model="news.contents"
-                    ></textarea>
-        </div>
+
+        <br><br>
+        
         <p>
 
-        <p>
+          <button class="btn btn-warning" ng-show="modify" ng-click="setCurrentTime()">{{"NEWS.SET_CURRENT_TIME"| translate}}</button>
 
-          <span class="btn btn-warning" ng-click="setCurrentTime()">{{"NEWS.SET_CURRENT_TIME"| translate}}</span>
+          <button class="btn btn-primary" ng-click="save()">{{"SAVE"| translate}}</button>          
 
-          <span class="btn btn-primary" ng-click="save()">{{"SAVE"| translate}}</span>          
+          <button class="btn btn-info" toggle="off" bubble target="mcc.overlayEditorNews">{{"CLOSE"| translate}}</button>
 
-          <span class="btn btn-info" toggle="off" bubble target="mcc.overlayEditorNews">{{"CLOSE"| translate}}</span>
+          <button class="btn btn-danger" ng-click="del(news.id)" ng-show="modify">{{"DELETE"| translate}}</button>
 
-          <span class="btn btn-danger" ng-click="del(news.id)" ng-show="modify">{{"DELETE"| translate}}</span>
-
-          <span class="btn btn-primary" ng-click="swapEditorType()">{{"ACE_TEXTAREA"| translate}}</span>
+          <button class="btn btn-primary" ng-click="editorACE = !editorACE">{{"ACE_TEXTAREA"| translate}}</button>
 
           <br><br>
           <b>{{"NOTE"| translate}}!</b> {{"DROP_IMAGE_SUPPORT  "| translate}}
@@ -109,40 +115,15 @@
         </p>  
       </div>
 
-      <div ng-show="show == 'figure'">      
-
-        <input 
-          bs-form-control
-          type="title" 
-          label="Maksimi dimensio"
-          ng-model="figure.maxdim"                 
-          placeholder="Maksimi dimensio"
-          size="200"
-          />
-
-        <input 
-          bs-form-control
-          type="title" 
-          label="Kuvan nimi"
-          ng-model="figure.name"                 
-          placeholder="Kuvan nimi"
-          size="200"
-          />
-
-        <canvas id="figureEditorCanvasNews" width="750" height="500"               
-                mcc-canvas-follow-mouse="mousePosition"                      
-                ng-click="setCropPoint()"></canvas>                
-        </canvas>
-
-        <p>
-
-          <span class="btn btn-primary" ng-click="saveFigure()">{{"SAVE"| translate}}</span>
-
-          <span class="btn btn-danger" ng-click="cancelFigure()">{{"CANCEL"| translate}}</span>
-
-        </p>
-
-      </div>
+      <!-- Figure editor -->           
+      <mcc-editor-figure  
+        ng-show="show == 'figure'"
+        figure-follow="newFigure"
+        figure-receive="figureSubmitToEditor"
+        figure-save="fileSaveCallback"
+        figure-params="currentFigureParams"
+        figure-cancel="figureCancel">         
+      </mcc-editor-figure>          
 
     </div>
 

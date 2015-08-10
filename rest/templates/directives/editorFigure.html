@@ -1,0 +1,57 @@
+<h3 class="overlay-title">{{"FIGEDIT.EDIT_TITLE"| translate}}</h3>
+
+<div ng-show="show == 'loading'" class="alert alert-info">  
+  {{"FIGEDIT.READING"| translate}}
+</div>
+
+<div ng-show="show == 'uploading'" class="alert alert-info">  
+  {{"FIGEDIT.UPLOADING"| translate}}
+</div>
+
+<div ng-show="show == 'uploaded'" class="alert alert-success">  
+  {{"FIGEDIT.UPLOADED"| translate}}
+</div>
+
+
+<div ng-show="show == 'uploadedError'"> 
+  <div class="alert alert-danger">  
+    {{"FIGEDIT.UPLOADED_ERROR"| translate}}
+  </div>
+  <p>
+    <span class="btn btn-danger" ng-click="onCancel()">{{"CANCEL"| translate}}</span>
+  </p>
+</div>
+
+
+<div ng-show="show == 'loaded'">
+
+  <input 
+    bs-form-control
+    type="title" 
+    label="{{'FIGEDIT.MAX_DIM'| translate}}"
+    ng-model="params.resize"                 
+    placeholder="{{'FIGEDIT.MAX_DIM'| translate}}"
+    size="200"
+    />
+
+  <input 
+    bs-form-control
+    type="title" 
+    label="{{'FIGEDIT.NAME'| translate}}"
+    ng-model="params.name"                 
+    placeholder="{{'FIGEDIT.NAME'| translate}}"
+    size="200"
+    />
+
+  <canvas width="750" height="500"   
+          id="mcc-editor-figure-canvas"        
+          mcc-canvas-follow-mouse="mousePosition"        
+          ng-click="recordMouseClick()">
+  </canvas>
+
+  <p>
+    <span class="btn btn-primary" ng-click="saveToServer()">{{"SAVE"| translate}}</span>
+    <span class="btn btn-danger" ng-click="onCancel()">{{"CANCEL"| translate}}</span>
+  </p>
+
+</div>

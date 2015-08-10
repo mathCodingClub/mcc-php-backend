@@ -1,8 +1,10 @@
 {
   "DATA": {
-    "CREATED_OK": "Data lisätty onnistuneesti.",
-    "DELETED_OK": "Data poistettu onnistuneesti.",
-    "GET_OK": "Data haettu onnistuneesti.",
-    "UPDATED_OK": "Data päivitetty onnistuneesti."    
+    "ADMIN_TITLE": "Manage data fields",
+    "CREATED_OK": "Data created successfully.",
+    "DELETED_OK": "Data removed successfully.",
+    "DOES_NOT_EXIST": "Data page does not exist",
+    "GET_OK": "Data fetched successfully.",    
+    "UPDATED_OK": "Data updated successfully."    
   }
  }

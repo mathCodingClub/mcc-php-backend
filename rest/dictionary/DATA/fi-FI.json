@@ -1,8 +1,8 @@
 {
   "DATA": {
-    "CREATED_OK": "Data created successfully.",
-    "DELETED_OK": "Data removed successfully.",
-    "GET_OK": "Data fetched successfully.",
-    "UPDATED_OK": "Data updated successfully."    
+    "CREATED_OK": "Data lisätty onnistuneesti.",
+    "DELETED_OK": "Data poistettu onnistuneesti.",
+    "GET_OK": "Data haettu onnistuneesti.",
+    "UPDATED_OK": "Data päivitetty onnistuneesti."    
   }
  }

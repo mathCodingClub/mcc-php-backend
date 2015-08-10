@@ -29,6 +29,7 @@
     "READ_MORE": "Read more",
     "REPLY": "Reply",
     "SEND_COMMENT_TITLE": "Send new comment",
-    "SEND_REPLY": "Send reply"
+    "SEND_REPLY": "Send reply",
+    "SET_CURRENT_TIME": "Set time to now"
   }
 }

@@ -18,6 +18,14 @@ class data extends \mcc\obj\service\base {
     return true;
   }
 
+  static public function getAllTitles(){
+    $db = \mcc\obj\sql::get();
+    $table = \mcc\obj\data\repositories\data::TABLE;
+    $data = $db->getData("select * from $table order by code");
+    $obj = \mcc\obj\utils\ar::convertQueryResultToRepoObjects(self::REPO,$data);
+    return \mcc\obj\utils\ar::convertObjectsToArray($obj, 'getTitleData');    
+  }
+  
   static public function getByCode($code) {
     $data = new \mcc\obj\data\repositories\data();
     $data->initBycode($code);

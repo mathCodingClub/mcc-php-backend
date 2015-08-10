@@ -42,6 +42,13 @@ class pri extends \mcc\obj\slimClass\service {
         'data' => $data->get()));
   }
 
+  public function getAllTitles(){
+    $this->sendArrayAsJSON(array(
+       'dict' => 'GET_OK',
+        'data' => \mcc\obj\data\services\data::getAllTitles()
+    ));
+  }
+  
   /**
    * @route: /:code/code
    */

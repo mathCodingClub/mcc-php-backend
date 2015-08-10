@@ -1,6 +1,7 @@
 {
   "ACE_TEXTAREA": "ACE/Textarea",
   "ACTION_OK": "Action performed successfully.",
+  "ADMIN": "Administration",
   "ALL": "All",
   "CANCEL": "Cancel",
   "CLOSE": "Close",
@@ -8,6 +9,7 @@
   "CONFIRM_ACTION": "Do you really want to perform action? It cannot be undone.",
   "CONFIRM_DELETE": "Do you really want to remove data? It cannot be undone.",
   "CONTENTS": "Contents",
+  "CREATE": "Create",
   "DELETE": "Remove",
   "DELETE_CANCELLED": "Delte cancelled",
   "DIALOGS_CONFIRMATION": "Confirm",

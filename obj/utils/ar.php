@@ -12,6 +12,16 @@ class ar {
       }
     }
   }
+
+  static public function convertQueryResultToRepoObjects($class,$data){
+    $ar = array();
+    foreach ($data as $key => $value){
+      $obj = new $class();
+      $obj->initByData($value);
+      $ar[$key] = $obj;
+    }
+    return $ar;
+  }
   
   static public function convertObjectsToArray($arrayOfOjects,$fun){
     $data = array();

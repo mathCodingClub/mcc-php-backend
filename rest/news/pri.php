@@ -52,6 +52,7 @@ class pri extends \mcc\obj\slimClass\service {
 
   public function putComment() {
     $data = $this->getBodyAsJSON();   
+    unset($data['time']);
     \mcc\obj\news\services\news::updateComment($data);
     $this->response->body(json_encode(array('msg' => 'Comment modified successfully.',
         'dict' => 'NEWS.COMMENT_MODIFIED'), JSON_NUMERIC_CHECK));

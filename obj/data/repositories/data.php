@@ -3,9 +3,9 @@
 namespace mcc\obj\data\repositories;
 
 class data extends \mcc\obj\repo\repobase {
-  
+
   protected $code_;
-  protected $content_;  
+  protected $content_;
   protected $title_;
 
   /**
@@ -17,8 +17,14 @@ class data extends \mcc\obj\repo\repobase {
    * @type: timestamp
    */
   protected $updated_;
-  
+
   // constant
   const TABLE = 'data';
-  
+
+  public function getTitleData() {
+    return array('title' => $this->gettitle(), 
+        'code' => $this->getcode(), 
+        'id' => $this->getid());
+  }
+
 }

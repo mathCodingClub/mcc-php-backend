@@ -27,7 +27,7 @@
            id="aceEditor_content"
            ng-show="editorACE"
            mcc-file-drop-zone
-           file-drop-zone-on-drop="fileReceived"         
+           file-drop-zone-on-drop="fileReceived"                    
            mcc-bind-keys="ctrl-s"
            bind-keys-ctrl-s="save"
            ng-model="data.content"
@@ -39,61 +39,32 @@
         <textarea style="width: 100%; height: 600px;"
                   class="my-bs-style"
                   mcc-file-drop-zone                  
-                  file-drop-zone-on-drop="fileReceived"
-                  file-drop-zone-param="{resize: 400, type: 'ingress'}"
+                  file-drop-zone-on-drop="fileReceived"                  
                   mcc-bind-keys="ctrl-s"
                   bind-keys-ctrl-s="save"
                   ng-model="data.content"
                   ></textarea>
       </div>
-
+      
+      <br><br>
       <p>
 
-      <p>
+        <button class="btn btn-primary" ng-click="save()">{{"SAVE"| translate}}</button>
 
-        <span class="btn btn-primary" ng-click="save()">{{"SAVE"| translate}}</span>
+        <button class="btn btn-info" toggle="off" bubble target="mcc.overlayEditorData">{{"CLOSE"| translate}}</button>
 
-        <span class="btn btn-info" toggle="off" bubble target="mcc.overlayEditorData">{{"CLOSE"| translate}}</span>
-        
-        <span class="btn btn-primary" ng-click="editorACE=!editorACE">{{"ACE_TEXTAREA"| translate}}</span>
+        <button class="btn btn-primary" ng-click="editorACE = !editorACE">{{"ACE_TEXTAREA"| translate}}</button>
 
       </p>
-    </div>
+    </div>    
     <!-- figure editor -->
-    <div ng-show="show == 'figure'">
-      <h3 class="overlay-title">Muokkaa kuvaa</h3>
-      <input 
-        bs-form-control
-        type="title" 
-        label="Maksimi dimensio"
-        ng-model="figure.maxdim"                 
-        placeholder="Maksimi dimensio"
-        size="200"
-        />
-
-      <input 
-        bs-form-control
-        type="title" 
-        label="Kuvan nimi"
-        ng-model="figure.name"                 
-        placeholder="Kuvan nimi"
-        size="200"
-        />
-
-      <canvas id="figureEditorCanvas" width="750" height="500"               
-              mcc-canvas-follow-mouse="mousePosition"              
-              ng-click="setCropPoint()"></canvas>                
-      </canvas>
-
-      <p>
-
-        <span class="btn btn-primary" ng-click="saveFigure()">{{"SAVE"| translate}}</span>
-
-        <span class="btn btn-danger" ng-click="cancelFigure()">{{"CANCEL"| translate}}</span>
-      </p>
-    </div>
-
-
+    <mcc-editor-figure         
+         figure-receive="figureSubmitToEditor"
+         figure-save="fileSaveCallback"
+         figure-cancel="figureCancel"
+         ng-show="show == 'figure'">           
+    </mcc-editor-figure>
+    
   </div>
 
 </div>
