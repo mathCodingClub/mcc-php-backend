@@ -15,7 +15,7 @@
           </small>
         </h1>
       </div>
-      
+
       <div ng-hide="isInitialized" 
            class="manual-loading scrollable scrollable-content" 
            style="background-color: white;">
@@ -48,14 +48,38 @@
 
         <div ng-repeat="item in comments" class="list-group-item">
           <div class="nice-width">
-            <b>{{item.name}}</b> {{"SENT"| translate}} <b>{{item.time| date:"EEE dd.MM.yyyy HH:mm:ss" : "UTC"}}</b>
-            <p class="comment">
+            <b ng-hide="$root.isLoggedIn">{{item.name}}</b> 
+            <span style="width: 300px;" ng-show="$root.isLoggedIn">
+              <input 
+                bs-form-control
+                type="text" 
+                label=""
+                ng-model="item.name"                 
+                placeholder="{{'NAME'| translate}}"
+                />              
+            </span>
+
+            {{"SENT"| translate}} <b>{{item.time| date:"EEE dd.MM.yyyy HH:mm:ss" : "UTC"}}</b>
+            <p class="comment" ng-hide="$root.isLoggedIn">
               {{item.contents}}
             </p>
-            <p class="comment-reply" ng-show="item.reply.length > 0">
+
+            <p ng-show="$root.isLoggedIn">
+              <b>{{'NEWS.COMMENT'| translate}}</b>
+              <textarea          
+                bs-form-control
+                cols="80"
+                rows="5"
+                label=""
+                ng-model="item.contents"                  
+                placeholder="{{'NEWS.COMMENT'| translate}}"
+                /></textarea>
+            </p>
+
+            <p ng-show="!$root.isLoggedIn && (item.reply.length > 0)" class="comment-reply">
               <i class="fa fa-caret-right"></i> {{item.reply}}
             </p>
-            <div ng-show="$root.isLoggedIn" style="max-width: 700px;">            
+            <div ng-show="$root.isLoggedIn">            
               <p>
                 <b>{{'NEWS.REPLY'| translate}}</b>
                 <textarea          

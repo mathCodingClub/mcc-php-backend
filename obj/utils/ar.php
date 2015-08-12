@@ -52,6 +52,18 @@ class ar {
       unset($array[$key]);
     }
   }
+  
+  // sorts objects in associative array by the string length of given field
+  static public function sortByStringLengthDesc(&$array,$key){
+    
+    $sortfun = function($a,$b) use ($key){
+      if (strlen($a[$key]) == strlen($b[$key])){
+        return 0;
+      }
+      return strlen($a[$key]) < strlen($b[$key]) ? 1 : -1;            
+    };
+    usort($array,$sortfun);    
+  }
 
     
 

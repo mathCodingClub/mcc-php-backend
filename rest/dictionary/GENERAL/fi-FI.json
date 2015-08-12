@@ -8,6 +8,7 @@
   "CONFIRM_ACTION": "Haluatko varmasti suorittaa toiminnon? Sitä ei voi peruuttaa.",
   "CONFIRM_DELETE": "Haluatko varmasti suorittaa poiston? Sitä ei voi peruuttaa.",
   "CONTENTS": "Sisältö",
+  "CREATE": "Luo",
   "DELETE": "Poista",
   "DELETE_CANCELLED": "Poisto peruutettu",
   "DIALOGS_CONFIRMATION": "Vahvista",

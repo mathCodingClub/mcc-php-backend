@@ -1,0 +1,48 @@
+<div> 
+
+  <div class="list-group-item" ng-repeat="(key,value) in data">       
+
+
+    <p>
+      <b>{{value.time| date:"EEE dd.MM.yyyy HH:mm:ss" : "UTC"}}</b>
+      <span class="pull-right">
+        <a href="{{value.link}}" target="instagram">
+          <img src="fig/logo-instagram256.png" style="max-height: 40px;">
+        </a>
+      </span>      
+    </p>
+
+    <p>
+      <img src="{{value.image}}" class="embedMedia">
+    </p>
+    
+    <p ng-show="value.type == 'video'">
+      <a href="{{value.link}}" target="instagram">
+        This is video, play in Instagram
+      </a>
+    </p>
+    
+    <!--
+        <video width="640" height="640" controls>
+          <source src="{{value.video.url}}" 
+                  type="video/mp4"/>
+        </video>
+    -->
+
+    <p mcc-angular-expr="value.html" class="nice-width"></p>
+
+    <p>
+      Käyttäjältä: 
+      <i>
+        {{value.user.name}}       
+        (<a href="https://instagram.com/{{value.user.screenName}}" target="instagram">@{{value.user.screenName}}</a>)                            
+      </i>   
+    </p>
+
+  </div>
+
+  <div class="list-group-item" style="min-height: 70px;" ng-show="isLoading"> 
+    <i class="fa fa-spinner fa-spin loading-spinner"></i>
+  </div>
+
+</div>
