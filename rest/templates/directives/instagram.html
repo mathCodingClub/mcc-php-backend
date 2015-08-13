@@ -1,4 +1,8 @@
-<div> 
+<div mcc-pagination="load"
+     height-margin="600"
+     parent=".scrollable-content"
+     >
+
 
   <div class="list-group-item" ng-repeat="(key,value) in data">       
     <div class="nice-width">
@@ -18,7 +22,7 @@
 
       <p ng-show="value.type == 'video'">
         <a href="{{value.link}}" target="instagram">
-          Tämä on video, toista Instagramissa
+          {{'INSTAGRAM.PLAY_IN_INSTAGRAM' | translate}}
         </a>
       </p>
 
@@ -42,6 +46,10 @@
 
   <div class="list-group-item" style="min-height: 70px;" ng-show="isLoading"> 
     <i class="fa fa-spinner fa-spin loading-spinner"></i>
+  </div>
+
+  <div class="list-group-item text-center" ng-show="allFetched">
+    <b>{{'ALL_FETCHED'| translate}}</b> 
   </div>
 
 </div>

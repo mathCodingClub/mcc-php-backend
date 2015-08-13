@@ -22,7 +22,7 @@ class instagram {
     }
     $url = 'https://api.instagram.com/v1/tags/tretrial/media/recent?access_token=' . self::$accessToken;
     $url.= "&count=$count";
-    $url .= is_null($maxid) ? '' : "&max_id=$maxid";
+    $url .= is_null($maxid) ? '' : "&min_tag_id=$maxid";    
     $ret = self::executeGet($url);
     $data = self::parseReply(json_decode($ret, true)['data']);
     \mcc\obj\cache\cache::set($key, $data);
@@ -37,8 +37,7 @@ class instagram {
     $url = "https://api.instagram.com/v1/users/$user/media/recent/?access_token=" . self::$accessToken;
     $url.= "&count=$count";
     $url .= is_null($maxid) ? '' : "&max_id=$maxid";
-    $ret = self::executeGet($url);
-    print $url;
+    $ret = self::executeGet($url);    
     $data = self::parseReply(json_decode($ret, true)['data']);
     \mcc\obj\cache\cache::set($key, $data);
     return $data;
@@ -56,8 +55,11 @@ class instagram {
   static private function parseReply($posts) {
     $data = array();
     foreach ($posts as $post) {
+      //error_log(json_encode($post));      
       //print_r($post);
+      //die();
       $ar = array(
+          'id' => $post['id'], // should be $post['id'], but max_id does not work in queries
           'link' => $post['link'],
           'type' => $post['type'],
           'image' => $post['images']['standard_resolution']['url'],
