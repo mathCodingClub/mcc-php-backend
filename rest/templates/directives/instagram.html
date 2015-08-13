@@ -1,44 +1,43 @@
 <div> 
 
   <div class="list-group-item" ng-repeat="(key,value) in data">       
+    <div class="nice-width">
 
+      <p>
+        <b>{{value.time| date:"EEE dd.MM.yyyy HH:mm:ss" : "UTC"}}</b>
+        <span class="pull-right">
+          <a href="{{value.link}}" target="instagram">
+            <img src="fig/logo-instagramText.png" style="max-height: 30px;">
+          </a>
+        </span>      
+      </p>
 
-    <p>
-      <b>{{value.time| date:"EEE dd.MM.yyyy HH:mm:ss" : "UTC"}}</b>
-      <span class="pull-right">
+      <p>
+        <img src="{{value.image}}" class="embedMedia">
+      </p>
+
+      <p ng-show="value.type == 'video'">
         <a href="{{value.link}}" target="instagram">
-          <img src="fig/logo-instagram256.png" style="max-height: 40px;">
+          Tämä on video, toista Instagramissa
         </a>
-      </span>      
-    </p>
+      </p>
 
-    <p>
-      <img src="{{value.image}}" class="embedMedia">
-    </p>
-    
-    <p ng-show="value.type == 'video'">
-      <a href="{{value.link}}" target="instagram">
-        This is video, play in Instagram
-      </a>
-    </p>
-    
-    <!--
-        <video width="640" height="640" controls>
-          <source src="{{value.video.url}}" 
-                  type="video/mp4"/>
-        </video>
-    -->
+      <!--
+          <video width="640" height="640" controls>
+            <source src="{{value.video.url}}" 
+                    type="video/mp4"/>
+          </video>
+      -->
 
-    <p mcc-angular-expr="value.html" class="nice-width"></p>
+      <p mcc-angular-expr="value.html"></p>
 
-    <p>
-      Käyttäjältä: 
-      <i>
-        {{value.user.name}}       
-        (<a href="https://instagram.com/{{value.user.screenName}}" target="instagram">@{{value.user.screenName}}</a>)                            
-      </i>   
-    </p>
-
+      <p>        
+        <i>
+          {{value.user.name}}       
+          <a href="https://instagram.com/{{value.user.screenName}}" target="instagram">@{{value.user.screenName}}</a>                            
+        </i>   
+      </p>
+    </div>
   </div>
 
   <div class="list-group-item" style="min-height: 70px;" ng-show="isLoading"> 

@@ -6,69 +6,80 @@ class twitter {
 
   static private $settings;
   static private $TMPKEY;
-
+  const CACHE_TIME = 30;
+  
+  
   static public function config($setting) {
     $mid = array_key_exists('SERVER_NAME', $_SERVER) ? $_SERVER['SERVER_NAME'] : 'cli';
     self::$TMPKEY = 'mcc-twitter-' . $mid . '-';
     self::$settings = $setting;
   }
 
-  static public function search($query) {
-    $key = self::$TMPKEY . 'search-' . $query;
-    //$key = hash('md5',self::$TMPKEY . 'search-query-' . $query);  
-    //\mcc\obj\cache\cache::clearCache();
-    if (!\mcc\obj\cache\cache::isOlderThan($key, 30)) {
+  static public function search($query, $count = 100, $maxid = null) {
+    $key = self::$TMPKEY . 'search-' . $query . '-' . $maxid;    
+    if (!\mcc\obj\cache\cache::isOlderThan($key, self::CACHE_TIME)) {
       return \mcc\obj\cache\cache::get($key);
     }
 
     $url = 'https://api.twitter.com/1.1/search/tweets.json';
-    $getfield = '?q=' . $query . '&include_entities=true';
+    $getfield = "?q=$query&include_entities=true&count=$count";
+    $getfield .= is_null($maxid) ? '' : "&max_id=$maxid";
     $requestMethod = 'GET';
     $twitter = new \TwitterAPIExchange(self::$settings);
     $str = $twitter->setGetfield($getfield)
-        ->buildOauth($url, $requestMethod)
-        ->performRequest();
+            ->buildOauth($url, $requestMethod)
+            ->performRequest();
     $data = self::parseReply($str);
     \mcc\obj\cache\cache::set($key, $data);
     return $data;
   }
 
-  static public function userTimeline($user, $count = 100) {
-    $key = self::$TMPKEY . 'userTimeline-' . $user;        
-    if (!\mcc\obj\cache\cache::isOlderThan($key, 30)) {
+  static public function userTimeline($user, $count = 100, $maxid = null) {
+    $key = self::$TMPKEY . 'userTimeline-' . $user . '-' . $maxid;
+    if (!\mcc\obj\cache\cache::isOlderThan($key, self::CACHE_TIME)) {
       return \mcc\obj\cache\cache::get($key);
     }
-    $url = 'https://api.twitter.com/1.1/statuses/user_timeline.json';    
-    $getfield = '?screen_name=' . $user . '&count=' . $count;
+    $url = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
+    $getfield = "?screen_name=$user&count=$count";
+    $getfield .= is_null($maxid) ? '' : "&max_id=$maxid";
     $requestMethod = 'GET';
     $twitter = new \TwitterAPIExchange(self::$settings);
-    $str = $twitter->setGetfield($getfield)    
-        ->buildOauth($url, $requestMethod)
-        ->performRequest();       
+    $str = $twitter->setGetfield($getfield)
+            ->buildOauth($url, $requestMethod)
+            ->performRequest();
     $ar = json_decode($str, true);
-    $data = self::parseTweets($ar);    
+    $data = self::parseTweets($ar);
     \mcc\obj\cache\cache::set($key, $data);
     return $data;
   }
 
-  static public function homeTimeline($count = 200){
-    $key = self::$TMPKEY . 'homeTimeline';        
-    if (!\mcc\obj\cache\cache::isOlderThan($key, 30)) {
+  static public function homeTimeline($count = 100, $maxid = null) {
+    $key = self::$TMPKEY . 'homeTimeline-' . $maxid;
+    if (!\mcc\obj\cache\cache::isOlderThan($key, self::CACHE_TIME)) {
       return \mcc\obj\cache\cache::get($key);
-    }    
-    $url = 'https://api.twitter.com/1.1/statuses/home_timeline.json';    
+    }
+    $url = 'https://api.twitter.com/1.1/statuses/home_timeline.json';
     $requestMethod = 'GET';
-    $getfield = '?count=' . $count;
-    $twitter = new \TwitterAPIExchange(self::$settings);    
-    $str = $twitter->setGetfield($getfield)    
-        ->buildOauth($url, $requestMethod)
-        ->performRequest();    
+    $getfield = "?&count=$count";
+    $getfield .= is_null($maxid) ? '' : "&max_id=$maxid";
+    $twitter = new \TwitterAPIExchange(self::$settings);
+    $str = $twitter->setGetfield($getfield)
+            ->buildOauth($url, $requestMethod)
+            ->performRequest();
+    error_log($maxid);
     $ar = json_decode($str, true);
-    $data = self::parseTweets($ar);    
+    if (array_key_exists('errors', $ar)) {
+      throw new \mcc\obj\mccException(array(
+  'dict' => 'TWITTER.RATE_LIMIT_EXCEEDED',
+  'param' => array('code' => $ar['errors'][0]['code'],
+      'reply' => json_encode($ar, JSON_PRETTY_PRINT)),
+  'msg' => $ar['errors'][0]['message']));
+    }
+    $data = self::parseTweets($ar);
     \mcc\obj\cache\cache::set($key, $data);
     return $data;
   }
-  
+
   /*
    * PRIVATE
    */
@@ -79,10 +90,12 @@ class twitter {
     //die();    
     return self::parseTweets($ar['statuses']);
   }
-  static private function parseTweets($tweetsFetched){
+
+  static private function parseTweets($tweetsFetched) {
     $tweets = array();
-    foreach ($tweetsFetched as $tweet) {      
+    foreach ($tweetsFetched as $tweet) {
       $tw = array(
+          'id' => $tweet['id'],
           'link' => 'https://twitter.com/' . $tweet['user']['screen_name'] . '/status/' . $tweet['id'],
           'text' => $tweet['text'],
           'time' => strtotime($tweet['created_at']) * 1000,
@@ -102,8 +115,8 @@ class twitter {
 
   static private function formHtml($tweet) {
     $str = $tweet['text'];
-        
-    
+
+
     foreach ($tweet['hashtags'] as $tag) {
       $ht = $tag['text'];
       $str = str_replace('#' . $ht, '<a href="https://twitter.com/hashtag/' . $ht . '?src=hash" target="twitter">#' . $ht . '</a>', $str);

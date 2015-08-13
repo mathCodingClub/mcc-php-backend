@@ -1,0 +1,5 @@
+{
+  "TWITTER": {
+    "RATE_LIMIT_EXCEEDED": "Twitter apia käytetty liikaa viimeisen 15 minuutin aikana. Tietoja ei voida hakea. Odota."
+  }
+}

@@ -7,29 +7,50 @@ class instagram {
   static private $accessToken;
   static private $TMPKEY;
 
+  const CACHE_TIME = 30;
+
   static public function setAccessToken($accessToken) {
     $mid = array_key_exists('SERVER_NAME', $_SERVER) ? $_SERVER['SERVER_NAME'] : 'cli';
     self::$TMPKEY = 'mcc-instagram-' . $mid . '-';
     self::$accessToken = $accessToken;
   }
 
-  static public function getMediaByTag($tag) {
-
-    $key = self::$TMPKEY . 'mediaByTag-' . $tag;
-    if (!\mcc\obj\cache\cache::isOlderThan($key, 30)) {
+  static public function getMediaByTag($tag, $count = 100, $maxid = null) {
+    $key = self::$TMPKEY . 'mediaByTag-' . $tag . '-' . $maxid;
+    if (!\mcc\obj\cache\cache::isOlderThan($key, self::CACHE_TIME)) {
       return \mcc\obj\cache\cache::get($key);
     }
-
-    $ch = curl_init();
     $url = 'https://api.instagram.com/v1/tags/tretrial/media/recent?access_token=' . self::$accessToken;
+    $url.= "&count=$count";
+    $url .= is_null($maxid) ? '' : "&max_id=$maxid";
+    $ret = self::executeGet($url);
+    $data = self::parseReply(json_decode($ret, true)['data']);
+    \mcc\obj\cache\cache::set($key, $data);
+    return $data;
+  }
+
+  static public function getMediaByUser($user, $count = 20, $maxid = null) {
+    $key = self::$TMPKEY . 'mediaByUser-' . $user . '-' . $maxid;
+    if (!\mcc\obj\cache\cache::isOlderThan($key, self::CACHE_TIME)) {
+      return \mcc\obj\cache\cache::get($key);
+    }
+    $url = "https://api.instagram.com/v1/users/$user/media/recent/?access_token=" . self::$accessToken;
+    $url.= "&count=$count";
+    $url .= is_null($maxid) ? '' : "&max_id=$maxid";
+    $ret = self::executeGet($url);
+    print $url;
+    $data = self::parseReply(json_decode($ret, true)['data']);
+    \mcc\obj\cache\cache::set($key, $data);
+    return $data;
+  }
+
+  static private function executeGet($url) {
+    $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json',
         'Accept: application/json'));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $ret = curl_exec($ch);
-    $data = self::parseReply(json_decode($ret, true)['data']);
-    \mcc\obj\cache\cache::set($key, $data);
-    return $data;
+    return curl_exec($ch);
   }
 
   static private function parseReply($posts) {
@@ -48,7 +69,7 @@ class instagram {
               'profile' => $post['caption']['from']['profile_picture'],
               'screenName' => $post['caption']['from']['username'])
       );
-      $ar['html'] = self::formHtml($post,$ar);
+      $ar['html'] = self::formHtml($post, $ar);
       if ($ar['type'] == 'video') {
         $ar['video'] = $post['videos']['standard_resolution'];
       }
@@ -57,20 +78,20 @@ class instagram {
     return $data;
   }
 
-  static private function formHtml($post,$ar) {
-    $str = ' ' . $ar['text'] . ' ';    
+  static private function formHtml($post, $ar) {
+    $str = ' ' . $ar['text'] . ' ';
     // links
     $str = preg_replace('@(https?://)(([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@', '<a href="$1$2" target="blank">$2</a>', $str);
     // users
     $str = preg_replace('#([,\?\.\s])(@)([a-zA-Z0-9\_]*)([,\?\.\s])#', '$1<a href="https://instagram.com/$3" target="instagram">@$3</a>$4', $str);
-    
+
     // dont do this with regular expression, because it might get confused with hashbangs
     foreach ($ar['hashtags'] as $tag) {
       $ht = $tag['text'];
       $str = preg_replace('@(#' . $ht . ')([,\?\s\-])@', '<a href="https://instagram.com/explore/tags/' . $ht . '" target="instagram">#' . $ht . '</a>$2', $str);
-    }        
+    }
 
-    $str = str_replace("\n",'<br>',$str);
+    $str = str_replace("\n", '<br>', $str);
     return trim($str);
   }
 

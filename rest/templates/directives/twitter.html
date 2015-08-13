@@ -1,37 +1,41 @@
-<div> 
+<div mcc-pagination="load"
+     height-margin="200"
+     parent=".scrollable-content"
+     >
 
-  <div class="list-group-item" ng-repeat="(key,value) in data">       
+<div class="list-group-item" ng-repeat="(key,value) in data">       
+  <div class="nice-width">
 
     <p>
       <b>{{value.time| date:"EEE dd.MM.yyyy HH:mm:ss" : "UTC"}}</b>
       <span class="pull-right">
         <a href="{{value.link}}" target="twitter">
-          <img src="fig/logo-twitter256.png" style="max-height: 40px;">
+          <img src="fig/logo-twitterText.png" style="max-height: 18px;">
         </a>
       </span>          
     </p>
 
-    <p mcc-angular-expr="value.html" class="nice-width"></p>
+    <p mcc-angular-expr="value.html"></p>
 
     <p ng-repeat="img in value.images">
       <img src="{{img.src}}" class="embedMedia">
     </p>
 
-    <p>
-      Käyttäjältä: 
+    <p>        
       <i>
         {{value.user.name}}       
-        (<a href="https://www.twitter.com/{{value.user.screenName}}" target="twitter">@{{value.user.screenName}}</a>)                            
+        <a href="https://www.twitter.com/{{value.user.screenName}}" target="twitter">@{{value.user.screenName}}</a>                            
       </i>
     </p>    
   </div>
+</div>
 
-  <!--
-  <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-  -->
+<!--
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+-->
 
-  <div class="list-group-item" style="min-height: 70px;" ng-show="isLoading"> 
-    <i class="fa fa-spinner fa-spin loading-spinner"></i>
-  </div>
+<div class="list-group-item" style="min-height: 70px;" ng-show="isLoading || loadingMore"> 
+  <i class="fa fa-spinner fa-spin loading-spinner"></i>
+</div>
 
 </div>

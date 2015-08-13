@@ -9,6 +9,11 @@ class cache {
   }
   
   static public function isOlderThan($key,$sec){        
+    // cache garbage collector
+    if (rand(1,100) > 95){
+      self::clearCache();
+    }
+    
     if (!file_exists(self::file($key))){
       return true;
     }
@@ -18,7 +23,7 @@ class cache {
     return false;
   }
   
-  static public function get($key){
+  static public function get($key){    
     if (!file_exists(self::file($key))){
       throw new \mcc\obj\mccException(array('msg' => 'File does not exist.'));
     }

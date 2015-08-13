@@ -19,7 +19,7 @@
           <a href="" class="btn btn-danger" ng-click="refresh()">{{'REFRESH'| translate}}</a>
         </div>
 
-        <div ng-repeat="(key, value) in news.data | groupBy: 'year' | reverse" mccPagination="atTheEnd">
+        <div ng-repeat="(key, value) in news.data | groupBy: 'year' | reverse" mcc-pagination="atTheEnd">
           <h2 class="list-group-item news-sub-title">{{value[0].year}}</h2>
           <a ng-repeat="item in value" 
              ng-class="{draft: !item.published}"
