@@ -5,12 +5,12 @@
         <h1>{{'NEWS.TITLE'| translate}}
           <div class="pull-right">
             <i class="fa fa-newspaper-o feature-icon text-primary"></i>
-          </div><br><small>{{'NEWS.SUBTITLE'| translate}}</small></h1></div>      
-      <div ng-hide="isInitialized" 
-           class="manual-loading scrollable scrollable-content" 
-           style="background-color: white;">
-        <i class="fa fa-spinner fa-spin loading-spinner"></i>
-      </div>
+          </div><br><small>{{'NEWS.SUBTITLE'| translate}}</small></h1>
+      </div>      
+
+      <div class="list-group-item" ng-hide="isInitialized">         
+        <mcc-small-spinner></mcc-small-spinner>
+      </div>    
 
       <div ng-show="isInitialized">
 
@@ -20,15 +20,15 @@
         </div>
 
         <div ng-repeat="(key, value) in news.data | groupBy: 'year' | reverse" mcc-pagination="atTheEnd">
-          <h2 class="list-group-item news-sub-title">{{value[0].year}}</h2>
+          <h2 class="list-group-item mcc-sub-title">{{value[0].year}}</h2>
           <a ng-repeat="item in value" 
-             ng-class="{draft: !item.published}"
+             ng-class="{'mcc-draft': !item.published}"
              ng-show="item.published || $parent.isLoggedIn" 
              class="list-group-item hand" href="news/{{item.id}}">
             <div>             
               <b>{{item.title}}</b>              
               <i class="fa fa-chevron-right pull-right"></i>  
-              <div class="ingress">
+              <div>
                 <i>
                   {{'NEWS.PUBLISHED'| translate}} {{item.time| date:"EEE dd.MM.yyyy HH:mm:ss" : "UTC"}}
                   <span ng-show="item.edited > item.time">
@@ -45,8 +45,8 @@
                 </span>
               </div>
             </div>
-            <div ng-show="item.ingress.length > 0 && $index < 6">
-              <div ng-bind-html="item.ingress" class="ingress">
+            <div ng-show="item.ingress.length > 5 && $index < 10">
+              <div ng-bind-html="item.ingress" class="mcc-ingress">
 
               </div>                    
               <b>{{'NEWS.READ_MORE'| translate}}!</b>            
@@ -60,7 +60,7 @@
         </div>
 
         <div ng-show="loadInProgress" class="list-group-item text-center">
-          <b>{{'NEWS.FETCHING_OLDER'| translate}}</b>
+          <mcc-small-spinner></mcc-small-spinner>
         </div>
 
       </div>

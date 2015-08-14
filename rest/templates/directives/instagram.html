@@ -5,7 +5,7 @@
 
 
   <div class="list-group-item" ng-repeat="(key,value) in data">       
-    <div class="nice-width">
+    <div class="mcc-nice-width">
 
       <p>
         <b>{{value.time| date:"EEE dd.MM.yyyy HH:mm:ss" : "UTC"}}</b>
@@ -17,7 +17,7 @@
       </p>
 
       <p>
-        <img src="{{value.image}}" class="embedMedia">
+        <img src="{{value.image}}" class="embed-media">
       </p>
 
       <p ng-show="value.type == 'video'">
@@ -44,8 +44,8 @@
     </div>
   </div>
 
-  <div class="list-group-item" style="min-height: 70px;" ng-show="isLoading || loadingMore"> 
-    <i class="fa fa-spinner fa-spin loading-spinner"></i>
+  <div class="list-group-item" ng-show="isLoading || loadingMore"> 
+    <mcc-small-spinner></mcc-small-spinner>
   </div>
 
   <div class="list-group-item text-center" ng-show="allFetched">

@@ -16,11 +16,9 @@
         </h1>
       </div>
 
-      <div ng-hide="isInitialized" 
-           class="manual-loading scrollable scrollable-content" 
-           style="background-color: white;">
-        <i class="fa fa-spinner fa-spin loading-spinner"></i>
-      </div>
+      <div class="list-group-item" ng-hide="isInitialized">         
+        <mcc-small-spinner></mcc-small-spinner>
+      </div>    
 
       <div ng-show="isInitialized">
 
@@ -34,7 +32,7 @@
         </div>     
 
         <div class="list-group-item">          
-          <div class="media-body news nice-width" mcc-angular-expr="news.contents" angular-expr-wrap="div">
+          <div class="media-body mcc-news mcc-nice-width" mcc-angular-expr="news.contents" angular-expr-wrap="div">
           </div>
         </div>
 
@@ -47,7 +45,7 @@
         </div>
 
         <div ng-repeat="item in comments" class="list-group-item">
-          <div class="nice-width">
+          <div class="mcc-nice-width">
             <b ng-hide="$root.isLoggedIn">{{item.name}}</b> 
             <span style="width: 300px;" ng-show="$root.isLoggedIn">
               <input 
@@ -76,7 +74,7 @@
                 /></textarea>
             </p>
 
-            <p ng-show="!$root.isLoggedIn && (item.reply.length > 0)" class="comment-reply">
+            <p ng-show="!$root.isLoggedIn && (item.reply.length > 0)" class="mcc-comment-reply">
               <i class="fa fa-caret-right"></i> {{item.reply}}
             </p>
             <div ng-show="$root.isLoggedIn">            
@@ -103,7 +101,7 @@
 
         <div class="list-group-item">
           <h2>{{'NEWS.SEND_COMMENT_TITLE'| translate}}</h2>
-          <div class="nice-width">
+          <div class="mcc-nice-width">
             <b>{{'YOUR_NAME'| translate}}</b>
             <input 
               bs-form-control

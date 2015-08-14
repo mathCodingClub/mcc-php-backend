@@ -1,0 +1,20 @@
+<div class="navbar navbar-app navbar-absolute-top">      
+  <div class="navbar-brand navbar-brand-center" yield-to="title">
+    <span>
+      {{mid}}
+    </span>
+  </div>
+
+  <div class="btn-group pull-left">
+    <div ng-click="toggle('mainSidebar')" class="btn btn-navbar sidebar-toggle">
+      {{left}}
+    </div>
+  </div>
+
+
+  <div class="btn-group pull-right" yield-to="navbarAction">
+    <div ng-click="toggle('rightSidebar')" class="btn btn-navbar">
+      {{right}}
+    </div>
+  </div>
+</div>
