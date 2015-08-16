@@ -17,21 +17,24 @@
       </p>
 
       <p>
-        <img src="{{value.image}}" class="embed-media">
-      </p>
-
-      <p ng-show="value.type == 'video'">
-        <a href="{{value.link}}" target="instagram">
-          {{'INSTAGRAM.PLAY_IN_INSTAGRAM' | translate}}
-        </a>
+        <img src="{{value.image}}" class="embed-media" ng-show="value.type != 'video'">
       </p>
 
       <!--
-          <video width="640" height="640" controls>
-            <source src="{{value.video.url}}" 
-                    type="video/mp4"/>
-          </video>
+      <p ng-show="value.type == 'video'">
+        <a href="{{value.link}}" target="instagram">
+          {{'INSTAGRAM.PLAY_IN_INSTAGRAM'| translate}}
+        </a>
+      </p>
+      
       -->
+
+      <div style="max-width: 100%; width: 500px; overflow: hidden;" ng-show="value.type == 'video'" class="embed-media">
+        <video controls name="media" poster="{{value.image}}">        
+          <source src="{{value.video.url}}" 
+                  type="video/mp4"/>
+        </video>      
+      </div>
 
       <p mcc-angular-expr="value.html"></p>
 
