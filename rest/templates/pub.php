@@ -3,12 +3,7 @@
 namespace mcc\rest\templates;
 
 class pub extends \mcc\obj\slimClass\service {
-
-  public function getCodepagecontainer($code) {
-    $this->setCT(self::CT_HTML);
-    print '<div mcc-code-page="' . $code . '"></div>';
-  }  
-  
+ 
   public function getCodepages($code) {
     try {
       $data = \mcc\obj\data\services\data::getByCode($code);
@@ -48,11 +43,6 @@ class pub extends \mcc\obj\slimClass\service {
     print $content;
     print \mcc\obj\templates\mobileAngularUI::contentFooter($hasContainer, !is_null($controller));
     print \mcc\obj\templates\mobileAngularUI::codeEditor();
-  }
-
-  public function getDirectives($dir) {
-    $this->setCT(self::CT_HTML);
-    print file_get_contents(__DIR__ . '/directives/' . $dir . '.html');
   }
 
 }

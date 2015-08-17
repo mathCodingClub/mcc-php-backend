@@ -21,7 +21,10 @@ class mobileAngularUI {
       print file_get_contents(getcwd() . '/' . self::$sa['headTemplateUrl']);
     }
     print "\n</head>\n";
-    print '<body ng-app="angularJsApp" ng-controller="app">' . PHP_EOL;
+    print '<body ng-app="' . self::$sa['appName'] . '" ng-controller="app">' . PHP_EOL;
+    // print here all the mcc templates
+    directives::preload();
+    
     print '<toaster-container toaster-options="{\'time-out\': 3000,\'spinner\':false}"></toaster-container>';
     self::embed(__DIR__ . '/mobileAngularUI/sideBars.html');
     print '<div class="app">';

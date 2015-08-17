@@ -71,11 +71,20 @@ class html5include {
   }
 
   static public function print_css($file) {
-    print '<link rel="stylesheet" href="' . $file . '" \>' . PHP_EOL;
+    
+    print '<link rel="stylesheet" href="' . $file;
+    if (!preg_match('@:@',$file)){
+      print '?vrs=' . filemtime($file);
+    }
+    print '" \>' . PHP_EOL;
   }
 
   static public function print_js($file) {
-    print '<script src="' . $file . '"></script>' . PHP_EOL;
+    print '<script src="' . $file;
+    if (!preg_match('@:@',$file)){
+      print '?vrs=' . filemtime($file);
+    }
+    print '"></script>' . PHP_EOL;
   }
 
 }
