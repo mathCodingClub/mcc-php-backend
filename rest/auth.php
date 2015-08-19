@@ -4,8 +4,8 @@ namespace mcc\rest;
 
 class auth extends \mcc\obj\slimClass\service {
 
-  const COOKIE = 'session';
-
+  const COOKIE = 'session';  
+  
   public function post() {
     $data = $this->getBodyAsJSON();
     if (!array_key_exists('username', $data) ||
@@ -16,11 +16,10 @@ class auth extends \mcc\obj\slimClass\service {
   'msg' => 'False credentials.'
       ));
     }
-
-    $user = \mcc\obj\user::initByUserNameAndPassword(
+    $user = \mcc\obj\user\services\user::initByUserNameAndPassword(
                     $data['username'], $data['password']);
-
-    $this->app->setCookie(self::COOKIE, $user->getSession(), '10 years');
+    $session = $user->getSession();    
+    $this->app->setCookie(self::COOKIE, $session->getsession(), '10 years');
     $this->sendArrayAsJSON(
             array('msg' => 'Successfully logged in.',
                 'dict' => 'LOGIN.LOGIN_SUCCESS',
@@ -29,15 +28,14 @@ class auth extends \mcc\obj\slimClass\service {
 
   public function get() {
     $cookie = $this->app->getCookie(self::COOKIE);
-    $user = \mcc\obj\user::initByCookie($cookie);
+    $user = \mcc\obj\user\services\user::initByCookie($cookie);
     $this->sendArrayAsJSON(
             array('user' => array('name' => $user->getName())));
   }
 
   public function getLogout() {
     $cookie = $this->app->getCookie(self::COOKIE);
-    $user = \mcc\obj\user::initByCookie($cookie);
-    $user->logout();
+    \mcc\obj\user\services\user::logout($cookie);    
     $this->app->deleteCookie(self::COOKIE);
     $this->sendArrayAsJSON(
             array('dict' => 'LOGIN.LOGGED_OUT',

@@ -7,7 +7,7 @@ class pri extends \mcc\obj\slimClass\service {
   private $user;
 
   public function middleware() {
-    $this->user = \mcc\obj\user::initByCookie();
+    $this->user = \mcc\obj\user\services\user::initByCookie();
   }
 
   // delete

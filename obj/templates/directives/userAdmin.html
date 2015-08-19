@@ -1,0 +1,29 @@
+<!-- @TITLE: {{'USER.ADMIN_TITLE'| translate}} -->
+<!-- @SUBTITLE: {{'USER.ADMIN_SUBTITLE' | translate}} -->
+<!-- @LOGO: fa-user-secret -->
+<!-- @NO-CONTAINER -->
+<!-- @NG-INIT: isInitialized=false; -->
+<!-- @LOADING-SPINNER: isInitialized -->
+<!-- @MCC-SIMPLE-TEMPLATE: userAdmin -->
+
+<div mcc-loading-var="isInitialized"
+     mcc-ajax-scope-var="ajax"
+     mcc-ajax-scope="rest/mcc/root/users/all">
+
+  <a class="@CONTAINER-CLASS" href="admin/user/selected">
+    Add new user
+    <i class="fa fa-chevron-right pull-right"></i>
+  </a>
+
+  <div class="mcc-sidebar-title  @CONTAINER_CLASS">
+    Select user to modify
+  </div>
+
+  <div ng-repeat="(key, value) in ajax.users">    
+    <a class="@CONTAINER-CLASS" href="admin/user/selected/{{value.id}}">
+      {{value.givenName}} {{value.familyName}}
+      <i class="fa fa-chevron-right pull-right"></i>
+    </a>
+
+  </div>
+</div>

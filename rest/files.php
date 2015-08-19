@@ -13,7 +13,7 @@ class files extends \mcc\obj\slimClass\service {
   }
 
   public function middleware() {
-    $this->user = \mcc\obj\user::initByCookie();
+    $this->user = \mcc\obj\user\services\user::initByCookie();
   }
 
   public function post() {

@@ -16,7 +16,6 @@ class pub extends \mcc\obj\slimClass\service {
           '" ng-click="create()">{{"CREATE" | translate}} \'' . $code . '\'</button>';
       print \mcc\obj\templates\mobileAngularUI::contentFooter(true);
       print \mcc\obj\templates\mobileAngularUI::codeEditor();
-
       return;
     }
     $content = $data->getcontent();
@@ -25,24 +24,9 @@ class pub extends \mcc\obj\slimClass\service {
       print $content;
       return;
     }
-
-    $title = \mcc\obj\templates\annotations::getValue('TITLE', $content);
-    $subtitle = \mcc\obj\templates\annotations::getValue('SUBTITLE', $content, null);
-    $logo = \mcc\obj\templates\annotations::getValue('LOGO', $content, 'fa-bike');
-    $hasContainer = !\mcc\obj\templates\annotations::hasAnnotation('NO-CONTAINER', $content);
-    $controller = \mcc\obj\templates\annotations::getValue('CONTROLLER', $content);
-    $loadingSpinner = \mcc\obj\templates\annotations::getValue('LOADING-SPINNER', $content, false);
-    $initialVars = \mcc\obj\templates\annotations::getValue('NG-INIT', $content, false);
-    $containerClass = 'list-group-item';
-
-    $content = \mcc\obj\templates\annotations::setContainerClasses($containerClass, $content);
-    $content = \mcc\obj\templates\annotations::addContainerClassBreaks($containerClass, $content);
-    $content = \mcc\obj\templates\annotations::removeComments($content);
-
-    print \mcc\obj\templates\mobileAngularUI::contentHeader($title, $logo, $subtitle, $hasContainer, true, $controller, $loadingSpinner, $initialVars);
-    print $content;
-    print \mcc\obj\templates\mobileAngularUI::contentFooter($hasContainer, !is_null($controller));
-    print \mcc\obj\templates\mobileAngularUI::codeEditor();
+    $template = \mcc\obj\templates\mobileAngularUI::pageTemplate('<!-- @DATA-PAGE -->' . 
+        $content);
+    print \mcc\obj\templates\annotations::removeComments($template);
   }
 
 }

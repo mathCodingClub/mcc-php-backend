@@ -49,7 +49,7 @@ abstract class repobase extends repodb {
 
   /* Magic methods are mapped here and all operate only with database variables */
 
-  protected function create($data) {
+  protected function create($data) {    
     $db = self::getDB();
     $this->fixTypes($data);
     $db->insert(static::TABLE, $data);

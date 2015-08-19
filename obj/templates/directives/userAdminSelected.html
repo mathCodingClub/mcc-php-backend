@@ -1,0 +1,88 @@
+<!-- @TITLE: {{'USER.ADMIN_TITLE'| translate}} -->
+<!-- @SUBTITLE: {{'USER.ADMIN_SUBTITLE' | translate}} -->
+<!-- @LOGO: fa-user-secret -->
+<!-- @NO-CONTAINER -->
+<!-- @NG-INIT: isInitialized = false; 
+user.username = '';
+user.givenName = '';
+user.familyName = '';
+user.email = '';
+user.role = 'admin';
+-->
+<!-- @LOADING-SPINNER: isInitialized -->
+<!-- @MCC-SIMPLE-TEMPLATE: userAdminSelected -->
+
+<div 
+  mcc-crud-repo="rest/mcc/root/users/user"
+  mcc-crud-repo-create-location="admin/user"
+  mcc-crud-repo-delete-location="admin/user"
+  mcc-loading-var="isInitialized"
+  mcc-ajax-scope-var="user"
+  mcc-ajax-scope-field="user"
+  mcc-ajax-scope-route-param="id"
+  mcc-ajax-scope="rest/mcc/root/users/user/">  
+
+  <div class="@CONTAINER-CLASS">
+    <span ng-hide="user.id">Add new user</span>
+    <span ng-show="user.id">Modify user</span>
+    <b>{{user.givenName}} {{user.familyName}}</b>    
+  </div>
+
+  <div class="@CONTAINER_CLASS">
+
+    <div class="nice-width"> 
+
+      <input 
+        bs-form-control
+        type="text" 
+        label="{{'givenName'| translate}}"
+        ng-model="user.givenName"                 
+        placeholder="{{'givenName'| translate}}"
+        size="200"
+        />
+
+      <input 
+        bs-form-control
+        type="text" 
+        label="{{'familyName'| translate}}"
+        ng-model="user.familyName"                 
+        placeholder="{{'familyName'| translate}}"
+        size="200"
+        />
+
+      <input 
+        bs-form-control
+        type="text" 
+        label="{{'username'| translate}}"
+        ng-model="user.username"                 
+        placeholder="{{'username'| translate}}"
+        size="200"
+        />
+
+      <input 
+        bs-form-control
+        type="text" 
+        label="{{'email'| translate}}"
+        ng-model="user.email"                 
+        placeholder="{{'email'| translate}}"
+        size="200"
+        />
+
+      <input 
+        bs-form-control
+        type="text" 
+        label="{{'role'| translate}}"
+        ng-model="user.role"                 
+        placeholder="{{'role'| translate}}"
+        size="200"
+        />
+
+      <button class="btn btn-primary" ng-click="update(user)" ng-show="user.id">{{'SAVE'| translate}}</button> 
+
+      <button class="btn btn-danger" ng-click="delete(user.id)" ng-show="user.id">{{'DELETE'| translate}}</button> 
+      
+      <button class="btn btn-primary" ng-click="create(user)" ng-hide="user.id">{{'CREATE'| translate}}</button> 
+
+    </div>
+  </div>
+</div>

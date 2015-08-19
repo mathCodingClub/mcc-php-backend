@@ -5,7 +5,7 @@ namespace mcc\obj\templates;
 class annotations {
 
   static public function getValue($annotation, $string, $default = null) {
-    preg_match("#(<!-- @$annotation:)(.*?)(-->)#", $string, $matches);
+    preg_match("#(<!-- @$annotation:)(.*?)(-->)#s", $string, $matches);
     if (count($matches) == 4) {
       return trim($matches[2]);
     }
@@ -13,16 +13,17 @@ class annotations {
   }
 
   static public function hasAnnotation($annotation, $string) {
-    return preg_match("<!-- @$annotation -->",$string);
+    return preg_match('@' . $annotation . '[: ]@',$string);
   }
 
   static public function setContainerClasses($container_class, $string) {
-    return str_replace('@CONTAINER_CLASS', $container_class, $string);
+    $string = str_replace('@CONTAINER_CLASS', $container_class, $string);
+    return str_replace('@CONTAINER-CLASS', $container_class, $string);
   }
 
   static public function removeComments($string) {
     while (true) {
-      preg_match('#(<!--)(.*?)(-->)#', $string, $matches);
+      preg_match('#(<!--)(.*?)(-->)#s', $string, $matches);
       if (count($matches) == 4) {
         $string = str_replace($matches[0], '', $string);
         continue;
