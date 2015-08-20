@@ -12,10 +12,10 @@ class mobileAngularUI {
     print "<!DOCTYPE html>\n<html><head>";
     print self::embed(__DIR__ . '/mobileAngularUI/meta.html');
     print '<script> var CONFIG = {' .
-        ' nav: ' . json_encode(self::$sa['nav'], JSON_PRETTY_PRINT) .
-        ', sideBarLeftBottomImage: ' . json_encode(self::$sa['sideBarLeftBottomImage'], JSON_PRETTY_PRINT) .
-        ', logoTitle: ' . json_encode(self::$sa['logoTitle'], JSON_PRETTY_PRINT) .
-        ' };</script>' . PHP_EOL . PHP_EOL;
+            ' nav: ' . json_encode(self::$sa['nav'], JSON_PRETTY_PRINT) .
+            ', sideBarLeftBottomImage: ' . json_encode(self::$sa['sideBarLeftBottomImage'], JSON_PRETTY_PRINT) .
+            ', logoTitle: ' . json_encode(self::$sa['logoTitle'], JSON_PRETTY_PRINT) .
+            ' };</script>' . PHP_EOL . PHP_EOL;
     new html5include(getcwd() . '/' . self::$sa['include']);
     if (array_key_exists('headTemplateUrl', self::$sa)) {
       print file_get_contents(getcwd() . '/' . self::$sa['headTemplateUrl']);
@@ -44,6 +44,12 @@ class mobileAngularUI {
     print '</body></html>';
   }
 
+  static public function codePageMissing($code) {
+    $template = file_get_contents(__DIR__ . '/custom/codePageMissing.html');
+    $template = str_replace('{{CODE}}', $code, $template);
+    return self::pageTemplate($template);
+  }
+
   static public function convertTemplate(&$template, &$controller) {
 
     // do nothing if blank annotation is included
@@ -59,26 +65,26 @@ class mobileAngularUI {
       if ($setRestrict = annotations::getValue('RESTRICT', $template, false)) {
         $restrict = $setRestrict;
       }
-      $conf = array('NAME' => $simple, 'RESTRICT' => $restrict, 'UCFNAME' => ucfirst($simple));      
-      $controller = self::embed(__DIR__ . '/custom/mccSimpleTemplate.js', $conf);      
+      $conf = array('NAME' => $simple, 'RESTRICT' => $restrict, 'UCFNAME' => ucfirst($simple));
+      $controller = self::embed(__DIR__ . '/custom/mccSimpleTemplate.js', $conf);
     }
   }
 
   static public function pageTemplate($template) {
     $top = '';
-    if ($isolatedScope = annotations::hasAnnotation('ISOLATED-SCOPE', $template)){
+    if ($isolatedScope = annotations::hasAnnotation('ISOLATED-SCOPE', $template)) {
       $top .= '<div mcc-isolated-scope>';
-    }    
+    }
     if ($controller = annotations::getValue('CONTROLLER', $template, false)) {
       $top .= '<div ng-controller="' . $controller . '">';
     }
     if ($ngInit = annotations::getValue('NG-INIT', $template, false)) {
-      $top .= '<div ng-init="' . preg_replace('#\r|\n#','',$ngInit) . '">';
+      $top .= '<div ng-init="' . preg_replace('#\r|\n#', '', $ngInit) . '">';
     }
     $top .= '<div class="scrollable scrollable-content">' .
-        '<div class="list-group">' .
-        '<div class="list-group-item">' .
-        '<h1>' . annotations::getValue('TITLE', $template);
+            '<div class="list-group">' .
+            '<div class="list-group-item">' .
+            '<h1>' . annotations::getValue('TITLE', $template);
     // add logo
     if ($logo = annotations::getValue('LOGO', $template, false)) {
       $top .= '<i class="pull-right fa ' . $logo . ' feature-icon text-primary"></i>';
@@ -91,16 +97,16 @@ class mobileAngularUI {
     // code editor button
     if ($codeEditor = annotations::hasAnnotation('DATA-PAGE', $template)) {
       $top .= '<div class="list-group-item" ng-show="$root.isLoggedIn">' .
-          '<button class="btn btn-primary" ng-click="showCodeEditor()">{{\'MODIFY_TEMPLATE\'| translate}}</button> ' .
-          '<button class="btn btn-danger" ng-click="refresh()">{{\'REFRESH\'| translate}}</button>' .
-          '</div>';
+              '<button class="btn btn-primary" ng-click="showCodeEditor()">{{\'MODIFY_TEMPLATE\'| translate}}</button> ' .
+              '<button class="btn btn-danger" ng-click="refresh()">{{\'REFRESH\'| translate}}</button>' .
+              '</div>';
     }
     // loading spinner
     if ($loadingSpinner = annotations::getValue('LOADING-SPINNER', $template, false)) {
       $top .='<div ng-hide="' . $loadingSpinner . '"' .
-          ' class="manual-loading scrollable scrollable-content"' .
-          ' style="background-color: white;">' .
-          ' <i class="fa fa-spinner fa-spin loading-spinner"></i></div>';
+              ' class="manual-loading scrollable scrollable-content"' .
+              ' style="background-color: white;">' .
+              ' <i class="fa fa-spinner fa-spin loading-spinner"></i></div>';
     }
     // container
     if ($hasContainer = !annotations::hasAnnotation('NO-CONTAINER', $template)) {
@@ -124,9 +130,9 @@ class mobileAngularUI {
     }
     if ($codeEditor) {
       $bottom .= '<div overlay="mcc.overlayEditorData">' .
-          '<div mcc-editor-data overlay-data="dataObject"></div></div>';
+              '<div mcc-editor-data overlay-data="dataObject"></div></div>';
     }
-    if ($isolatedScope){
+    if ($isolatedScope) {
       $bottom .= '</div>';
     }
     $template = annotations::setContainerClasses('list-group-item', $template);
@@ -134,7 +140,7 @@ class mobileAngularUI {
   }
 
   static private function embed($file, $sa = null) {
-    $text = file_get_contents($file);    
+    $text = file_get_contents($file);
     if (is_null($sa)) {
       $sa = self::$sa;
     }
