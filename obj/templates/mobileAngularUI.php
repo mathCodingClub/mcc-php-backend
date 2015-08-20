@@ -66,6 +66,9 @@ class mobileAngularUI {
 
   static public function pageTemplate($template) {
     $top = '';
+    if ($isolatedScope = annotations::hasAnnotation('ISOLATED-SCOPE', $template)){
+      $top .= '<div mcc-isolated-scope>';
+    }    
     if ($controller = annotations::getValue('CONTROLLER', $template, false)) {
       $top .= '<div ng-controller="' . $controller . '">';
     }
@@ -88,7 +91,8 @@ class mobileAngularUI {
     // code editor button
     if ($codeEditor = annotations::hasAnnotation('DATA-PAGE', $template)) {
       $top .= '<div class="list-group-item" ng-show="$root.isLoggedIn">' .
-          '<button class="btn btn-primary" ng-click="showCodeEditor()">{{\'MODIFY_TEMPLATE\'| translate}}</button>' .
+          '<button class="btn btn-primary" ng-click="showCodeEditor()">{{\'MODIFY_TEMPLATE\'| translate}}</button> ' .
+          '<button class="btn btn-danger" ng-click="refresh()">{{\'REFRESH\'| translate}}</button>' .
           '</div>';
     }
     // loading spinner
@@ -121,6 +125,9 @@ class mobileAngularUI {
     if ($codeEditor) {
       $bottom .= '<div overlay="mcc.overlayEditorData">' .
           '<div mcc-editor-data overlay-data="dataObject"></div></div>';
+    }
+    if ($isolatedScope){
+      $bottom .= '</div>';
     }
     $template = annotations::setContainerClasses('list-group-item', $template);
     return $top . $template . $bottom;

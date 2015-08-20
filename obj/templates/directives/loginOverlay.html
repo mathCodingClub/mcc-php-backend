@@ -37,7 +37,7 @@
   </div>
 
   <div style="max-width: 500px; margin: auto; display: table;" ng-show="$root.isLoggedIn">
-    {{"LOGIN.LOGGED_IN_AS"| translate}} {{$root.user.name}}
+    {{"LOGIN.LOGGED_IN_AS"| translate}} <b>{{$root.user.givenName}} {{$root.user.familyName}}</b>
     <br><br>
     <p>
       <span class="btn btn-primary" ng-click="clickLogout()">{{"LOGIN.LOGOUT"| translate}}</span>

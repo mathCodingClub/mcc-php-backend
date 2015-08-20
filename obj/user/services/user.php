@@ -38,7 +38,7 @@ class user extends \mcc\obj\service\base {
 
   static public function initByUserNameAndPassword($username, $password) {
     $user = new \mcc\obj\user\repositories\user();
-    $user->initByusername($username);
+    $user->initByUsername($username);
     if (!$user->comparePassword($password)) {
       throw new \mcc\obj\mccException(
       array('dict' => 'NOT_AUTHORIZED',
@@ -51,7 +51,9 @@ class user extends \mcc\obj\service\base {
   }
 
   static public function initByToken($token) {
-    
+    $user = \mcc\obj\user\repositories\token::getUserFor($token);
+    \mcc\obj\user\repositories\session::createFor($user);
+    return $user;
   }
 
   static public function logout($cookie = null) {
@@ -59,6 +61,11 @@ class user extends \mcc\obj\service\base {
     $session = self::getSession($cookie);
     \mcc\obj\user\repositories\user::delete($session->getid());
     unset($session);
+  }
+  
+  static public function updatePassword($id,$password){
+    $user = new \mcc\obj\user\repositories\user($id);
+    $user->setPassword($password);
   }
 
   // private

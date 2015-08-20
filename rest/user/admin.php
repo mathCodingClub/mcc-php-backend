@@ -11,14 +11,14 @@ class admin extends \mcc\obj\slimClass\service {
   }
 
   public function deleteUser($id) {
-    if ($id == $this->user->getid()){
-    throw new \mcc\obj\mccException(
-        array(
-            'dict' => 'ERROR',
-            'msg' => 'You cannot delete yourself.',
-            'code' => '400'
-        )
-        );
+    if ($id == $this->user->getid()) {
+      throw new \mcc\obj\mccException(
+      array(
+      'dict' => 'ERROR',
+      'msg' => 'You cannot delete yourself.',
+      'code' => '400'
+      )
+      );
     }
     \mcc\obj\user\services\user::deleteById($id);
     $this->response->body(json_encode(array('msg' => 'User deleted successfully.',
@@ -51,6 +51,25 @@ class admin extends \mcc\obj\slimClass\service {
     $data = $this->getBodyAsJSON();
     \mcc\obj\user\services\user::save($data);
     $this->response->body(json_encode(array('msg' => 'User modified successfully.',
+        'dict' => 'ACTION_OK'), JSON_NUMERIC_CHECK));
+  }
+
+  /**
+   * @route: /user/:id/password
+   */
+  public function putUserPassword($id) {
+    $data = $this->getBodyAsJSON();
+    if ($data['first'] != $data['second'] || strlen($data['first']) < 2) {
+      throw new \mcc\obj\mccException(
+      array(
+      'dict' => 'ERROR',
+      'msg' => 'Passwords do not match.',
+      'code' => '400'
+      )
+      );
+    }
+    \mcc\obj\user\services\user::updatePassword($id,$data['first']);
+    $this->response->body(json_encode(array('msg' => 'Password updated successfully.',
         'dict' => 'ACTION_OK'), JSON_NUMERIC_CHECK));
   }
 

@@ -28,9 +28,9 @@ class auth extends \mcc\obj\slimClass\service {
 
   public function get() {
     $cookie = $this->app->getCookie(self::COOKIE);
-    $user = \mcc\obj\user\services\user::initByCookie($cookie);
+    $user = \mcc\obj\user\services\user::initByCookie($cookie);    
     $this->sendArrayAsJSON(
-            array('user' => array('name' => $user->getName())));
+            array('user' => $user->get()));
   }
 
   public function getLogout() {

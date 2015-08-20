@@ -21,21 +21,21 @@ abstract class repobase extends repodb {
     } elseif (preg_match('@^initByArray$@', $name)) {
       $this->initBy(null, $args[0]);
     } elseif (preg_match('@^initBy@', $name)) {
-      $this->initBy(preg_replace('@^initBy@', '', $name), $args[0]);
+      $this->initBy(lcfirst(preg_replace('@^initBy@', '', $name)), $args[0]);
     } elseif (preg_match('@^initChildren[a-zA-Z]@', $name)) { // at leat one after init children
-      $this->initChildrenData(preg_replace('@^initChildren@', '', $name));
+      $this->initChildrenData(lcfirst(preg_replace('@^initChildren@', '', $name)));
     } elseif (preg_match('@^get$@', $name)) {
       return $this->getData();
     } elseif (preg_match('@^getChildrenOrder@', $name)) {
-      return $this->getChildren(preg_replace('@^getChildrenOrder@', '', $name), $args[0]);
+      return $this->getChildren(lcfirst(preg_replace('@^getChildrenOrder@', '', $name)), $args[0]);
     } elseif (preg_match('@^getChildren@', $name)) {
-      return $this->getChildren(preg_replace('@^getChildren@', '', $name));
+      return $this->getChildren(lcfirst(preg_replace('@^getChildren@', '', $name)));
     } elseif (preg_match('@^get@', $name)) {
-      return $this->getValue(preg_replace('@^get@', '', $name));
+      return $this->getValue(lcfirst(preg_replace('@^get@', '', $name)));
     } elseif (preg_match('@^set$@', $name)) {
       return $this->setData($args[0]);
     } elseif (preg_match('@^set@', $name)) {
-      return $this->setValue(preg_replace('@^set@', '', $name), $args[0]);
+      return $this->setValue(lcfirst(preg_replace('@^set@', '', $name)), $args[0]);
     } else {
       throw new \Exception("Unknown magic method '$name' called", 400);
     }

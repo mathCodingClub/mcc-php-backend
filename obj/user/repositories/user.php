@@ -32,6 +32,11 @@ class user extends \mcc\obj\repo\repobase {
     return $data;
   }
   
+  public function setPassword($password){
+    $passwordHash = self::hashPassword($password);
+    $this->setpasswordHash($passwordHash);
+  }
+  
   public function comparePassword($password) {
     return password_verify($password, $this->getpasswordHash());
   }

@@ -13,7 +13,7 @@ class pub extends \mcc\obj\slimClass\service {
       $logo = 'fa-cog';      
       print \mcc\obj\templates\mobileAngularUI::contentHeader($title, $logo, $subtitle, true);
       print '<button class="btn btn-primary" ng-show="$root.isLoggedIn" mcc-code-page-create="' . $code . 
-          '" ng-click="create()">{{"CREATE" | translate}} \'' . $code . '\'</button>';
+          '" ng-click="create()">{{"CREATE" | translate}} \'' . $code . '\'</button> ';      
       print \mcc\obj\templates\mobileAngularUI::contentFooter(true);
       print \mcc\obj\templates\mobileAngularUI::codeEditor();
       return;
