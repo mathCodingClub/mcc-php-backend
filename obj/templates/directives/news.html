@@ -14,10 +14,11 @@
 
   <div ng-repeat="(key, value) in news.data | groupBy: 'year' | reverse" mcc-pagination="atTheEnd">
     <h2 class="list-group-item mcc-sub-title">{{value[0].year}}</h2>
-    <a ng-repeat="item in value" 
+    <mcc-link ng-repeat="item in value" 
        ng-class="{'mcc-draft': !item.published}"
        ng-show="item.published || $parent.isLoggedIn" 
-       class="list-group-item hand" href="news/{{item.id}}">
+       no-class
+       class="list-group-item hand" route="news/{{item.id}}">
       <div>             
         <b>{{item.title}}</b>              
         <i class="fa fa-chevron-right pull-right"></i>  
@@ -40,7 +41,6 @@
       </div>
       <div ng-show="item.ingress.length > 5 && $index < 10">
         <div ng-bind-html="item.ingress" class="mcc-ingress">
-
         </div>                    
         <b>{{'NEWS.READ_MORE'| translate}}!</b>            
         <i class="fa fa-chevron-right pull-right"></i>

@@ -18,8 +18,8 @@
   </div>
 
   <div class="list-group-item media">
-    <span class="pull-left" ng-show="previous"><i class="fa fa-caret-left"></i> <a href="news/{{previous.id}}">{{"PREVIOUS"| translate}}</a></span>        
-    <span class="pull-right" ng-show="next"><a href="news/{{next.id}}">{{"NEXT"| translate}}</a> <i class="fa fa-caret-right"></i></span>        
+    <span class="pull-left" ng-show="previous"><i class="fa fa-caret-left"></i> <mcc-link route="/news/{{previous.id}}">{{"PREVIOUS"| translate}}</mcc-link></span>        
+    <span class="pull-right" ng-show="next"><mcc-link route="/news/{{next.id}}">{{"NEXT"| translate}}</mcc-link> <i class="fa fa-caret-right"></i></span>        
   </div>     
 
   <div class="list-group-item">          
@@ -81,10 +81,10 @@
             /></textarea>
           <br>
         <p>
-          <a href="" class="btn btn-primary" ng-click="postReply($index)">{{'NEWS.SEND_REPLY'| translate}}</a>      
+          <button class="btn btn-primary" ng-click="postReply($index)">{{'NEWS.SEND_REPLY'| translate}}</button>      
         </p>
         <p>
-          <a href="" class="btn btn-danger" ng-click="deleteComment(item.id)">{{'NEWS.DELETE_COMMENT'| translate}}</a>      
+          <button class="btn btn-danger" ng-click="deleteComment(item.id)">{{'NEWS.DELETE_COMMENT'| translate}}</button>      
         </p>
       </div>
     </div>
@@ -130,16 +130,16 @@
 
   <div class="list-group-item media">
 
-    <span class="pull-left" ng-show="previous"><i class="fa fa-caret-left"></i> <a href="news/{{previous.id}}">{{"PREVIOUS"| translate}}</a></span>        
+    <span class="pull-left" ng-show="previous"><i class="fa fa-caret-left"></i> <mcc-link route="/news/{{previous.id}}">{{"PREVIOUS"| translate}}</mcc-link></span>        
 
-    <span class="pull-right" ng-show="next"><a href="news/{{next.id}}">{{"NEXT"| translate}}</a> <i class="fa fa-caret-right"></i></span>        
+    <span class="pull-right" ng-show="next"><mcc-link route="/news/{{next.id}}">{{"NEXT"| translate}}</mcc-link> <i class="fa fa-caret-right"></i></span>        
 
   </div>
   <div class="list-group-item">
 
     <div class="text-center">
       <i class="fa fa-caret-up"></i> 
-      <a href="news">{{"ALL"| translate}}</a>
+      <mcc-link route="/news">{{"ALL"| translate}}</mcc-link>
       <i class="fa fa-caret-up"></i>
     </div>
 
