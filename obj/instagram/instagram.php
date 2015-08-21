@@ -83,14 +83,14 @@ class instagram {
   static private function formHtml($post, $ar) {
     $str = ' ' . $ar['text'] . ' ';
     // links
-    $str = preg_replace('@(https?://)(([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@', '<a href="$1$2" target="blank">$2</a>', $str);
+    $str = preg_replace('@(https?://)(([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@', '<mcc-link url="$1$2">$2</mcc-link>', $str);
     // users
-    $str = preg_replace('#([,\?\.\s])(@)([a-zA-Z0-9\_]*)([,\?\.\s])#', '$1<a href="https://instagram.com/$3" target="instagram">@$3</a>$4', $str);
+    $str = preg_replace('#([,\?\.\s])(@)([a-zA-Z0-9\_]*)([,\?\.\s])#', '$1<mcc-link url="https://instagram.com/$3">@$3</mcc-link>$4', $str);
 
     // dont do this with regular expression, because it might get confused with hashbangs
     foreach ($ar['hashtags'] as $tag) {
       $ht = $tag['text'];
-      $str = preg_replace('@(#' . $ht . ')([,\?\s\-])@', '<a href="https://instagram.com/explore/tags/' . $ht . '" target="instagram">#' . $ht . '</a>$2', $str);
+      $str = preg_replace('@(#' . $ht . ')([,\?\s\-])@', '<mcc-link url="https://instagram.com/explore/tags/' . $ht . '">#' . $ht . '</mcc-link>$2', $str);
     }
 
     $str = str_replace("\n", '<br>', $str);

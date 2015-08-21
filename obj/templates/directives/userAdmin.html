@@ -10,20 +10,20 @@
      mcc-ajax-scope-var="ajax"
      mcc-ajax-scope="rest/mcc/root/users/all">
 
-  <a class="@CONTAINER-CLASS" href="admin/user/selected">
+  <mcc-link no-class class="@CONTAINER-CLASS mcc-hover-side-bar" url="admin/user/selected">
     Add new user
     <i class="fa fa-chevron-right pull-right"></i>
-  </a>
+  </mcc-link>
 
   <div class="mcc-sidebar-title  @CONTAINER_CLASS">
     Select user to modify
   </div>
 
   <div ng-repeat="(key, value) in ajax.users">    
-    <a class="@CONTAINER-CLASS" href="admin/user/selected/{{value.id}}">
+    <mcc-link no-class class="@CONTAINER-CLASS mcc-hover-side-bar" url="admin/user/selected/{{value.id}}">
       {{value.givenName}} {{value.familyName}}
       <i class="fa fa-chevron-right pull-right"></i>
-    </a>
+    </mcc-link>
 
   </div>
 </div>

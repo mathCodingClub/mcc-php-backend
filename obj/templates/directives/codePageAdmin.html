@@ -17,10 +17,10 @@
 
     <div ng-repeat="(key, value) in ajax.data">
 
-      <a class="@CONTAINER-CLASS hand" ng-click="showCodeEditor(value.code)">
+      <mcc-link-url class="@CONTAINER-CLASS mcc-hover-side-bar hand" ng-click="showCodeEditor(value.code)">
         <b>{{value.code}}:</b> {{value.title}}
         <i class="fa fa-chevron-right pull-right"></i>
-      </a>
+      </mcc-link>
 
     </div>
   </div>

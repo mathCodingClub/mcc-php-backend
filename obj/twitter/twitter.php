@@ -119,13 +119,13 @@ class twitter {
 
     foreach ($tweet['hashtags'] as $tag) {
       $ht = $tag['text'];
-      $str = str_replace('#' . $ht, '<a href="https://twitter.com/hashtag/' . $ht . '?src=hash" target="twitter">#' . $ht . '</a>', $str);
+      $str = str_replace('#' . $ht, '<mcc-link url="https://twitter.com/hashtag/' . $ht . '?src=hash">#' . $ht . '</mcc-link>', $str);
     }
     foreach ($tweet['urls'] as $url) {
-      $str = str_replace($url['urlShort'], '<a href="' . $url['url'] . '" target="blank">' . $url['text'] . '</a>', $str);
+      $str = str_replace($url['urlShort'], '<mcc-link url="' . $url['url'] . '" target="blank">' . $url['text'] . '</mcc-link>', $str);
     }
     foreach ($tweet['userMentions'] as $user) {
-      $str = str_replace('@' . $user['screenName'], '<a href="https://twitter.com/' . $user['screenName'] . '" target="twitter">@' . $user['screenName'] . '</a>', $str);
+      $str = str_replace('@' . $user['screenName'], '<mcc-link url="https://twitter.com/' . $user['screenName'] . '">@' . $user['screenName'] . '</mcc-link>', $str);
     }
     $str = preg_replace('@(http://t.co/)([a-zA-Z0-9]*)$@', '', trim($str));
     return $str;

@@ -9,9 +9,9 @@
       <p>
         <b>{{value.time| date:"EEE dd.MM.yyyy HH:mm:ss" : "UTC"}}</b>
         <span class="pull-right">
-          <a href="{{value.link}}" target="twitter">
+          <mcc-link url="{{value.link}}" no-class>
             <img src="fig/logo-twitterText.png" style="max-height: 18px;">
-          </a>
+          </mcc-link>
         </span>          
       </p>
 
@@ -24,15 +24,11 @@
       <p>        
         <i>
           {{value.user.name}}       
-          <a href="https://www.twitter.com/{{value.user.screenName}}" target="twitter">@{{value.user.screenName}}</a>                            
+          <mcc-link url="https://www.twitter.com/{{value.user.screenName}}">@{{value.user.screenName}}</mcc-link>                            
         </i>
       </p>    
     </div>
-  </div>
-
-  <!--
-  <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-  -->
+  </div>  
 
   <div class="list-group-item" ng-show="isLoading || loadingMore"> 
     <mcc-small-spinner></mcc-small-spinner>
