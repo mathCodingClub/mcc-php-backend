@@ -4,7 +4,7 @@
   <a ng-click="click(link)" 
      ng-show="show(link)" 
      ng-class="{'active-area' : $root.activeArea == link.link || $root.activeArea == link.path}"               
-     class="list-group-item hand">
+     class="list-group-item hand mcc-hover-side-bar">
     <span mcc-angular-expr="link.title"></span>
     <span class="pull-right">
       <span ng-hide="link.logo">
@@ -25,7 +25,7 @@
     <a ng-click="click(sublink, link)" 
        ng-class="{'active-area-sub' : $root.activeAreaSub == sublink.link}"     
        ng-show="show(sublink, link)"               
-       class="list-group-item area-sub hand">      
+       class="list-group-item area-sub hand mcc-hover-side-bar">      
       <span mcc-angular-expr="sublink.title"></span>
       <span class="pull-right">
         <span ng-hide="sublink.logo">
