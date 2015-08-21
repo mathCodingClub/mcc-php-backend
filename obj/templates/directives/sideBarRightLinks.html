@@ -1,6 +1,6 @@
 <!-- @MCC-DIRECTIVE: sideBarRightLinks -->
 <!-- @RESTRICT: A -->
-<!-- @MAP: links -->
+<!-- @MAP: links,fig -->
 
 <div class="scrollable sidebar-scrollable">
   <div class="scrollable-content">
@@ -13,7 +13,8 @@
           <div class="list-group-item mcc-hover-side-bar" no-class mcc-link="{{link.url}}">{{link.title}}<i class="fa fa-external-link pull-right"></i></div>
         </div>
 
-      </div>
+      </div>      
+      <img src="{{fig}}" ng-click="toggle('rightSidebar')" ng-show="fig">
 
     </div>
   </div>
