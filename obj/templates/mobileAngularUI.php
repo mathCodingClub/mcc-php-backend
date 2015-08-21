@@ -60,6 +60,7 @@ class mobileAngularUI {
     if (\mcc\obj\templates\annotations::hasAnnotation('TITLE', $template)) {
       $template = self::pageTemplate($template);
     }
+    // controllers
     if ($simple = annotations::getValue('MCC-SIMPLE-TEMPLATE', $template, false)) {
       $restrict = 'AE';
       if ($setRestrict = annotations::getValue('RESTRICT', $template, false)) {
@@ -67,6 +68,21 @@ class mobileAngularUI {
       }
       $conf = array('NAME' => $simple, 'RESTRICT' => $restrict, 'UCFNAME' => ucfirst($simple));
       $controller = self::embed(__DIR__ . '/custom/mccSimpleTemplate.js', $conf);
+    }
+    if ($directive = annotations::getValue('MCC-DIRECTIVE', $template, false)) {
+      $restrict = 'AE';
+      if ($setRestrict = annotations::getValue('RESTRICT', $template, false)) {
+        $restrict = $setRestrict;
+      }
+      $conf = array('NAME' => $directive, 'RESTRICT' => $restrict, 'UCFNAME' => ucfirst($directive));
+      // create Scope string
+      $mapValues = explode(',',annotations::getValue('MAP', $template));
+      $scopeArray = array();
+      foreach ($mapValues as $key){
+        array_push($scopeArray,$key . ": '=$key'");
+      }
+      $conf['SCOPE-MAP'] = '{' . implode(",\n",$scopeArray) . '}';      
+      $controller = self::embed(__DIR__ . '/custom/mccDirectiveScopeMap.js', $conf);      
     }
   }
 
@@ -145,7 +161,7 @@ class mobileAngularUI {
       $sa = self::$sa;
     }
     while (true) {
-      preg_match('@({{)([a-zA-Z]*)(}})@', $text, $ar);
+      preg_match('@({{)([a-zA-Z-]*)(}})@', $text, $ar);
       if (count($ar) == 0) {
         break;
       }

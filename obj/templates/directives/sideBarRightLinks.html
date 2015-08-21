@@ -1,0 +1,19 @@
+<!-- @MCC-DIRECTIVE: sideBarRightLinks -->
+<!-- @RESTRICT: A -->
+<!-- @MAP: links -->
+
+<div class="scrollable sidebar-scrollable">
+  <div class="scrollable-content">
+    <div class="list-group"> <!-- toggle="off" bubble target="rightSidebar">-->
+
+      <div ng-repeat="(title,data) in links">
+
+        <div class="mcc-sidebar-title list-group-item" ng-click="toggle('rightSidebar')">{{title}} <i class="fa fa-newspaper-o pull-right"></i></div>
+        <div ng-repeat="(key,link) in data">
+          <div class="list-group-item" no-class mcc-link="{{link.url}}">{{link.title}}<i class="fa fa-external-link pull-right"></i></div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
