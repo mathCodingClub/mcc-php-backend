@@ -9,7 +9,7 @@ class instagram {
 
   const CACHE_TIME = 30;
 
-  static public function setAccessToken($accessToken) {
+  static public function config($accessToken) {
     $mid = array_key_exists('SERVER_NAME', $_SERVER) ? $_SERVER['SERVER_NAME'] : 'cli';
     self::$TMPKEY = 'mcc-instagram-' . $mid . '-';
     self::$accessToken = $accessToken;

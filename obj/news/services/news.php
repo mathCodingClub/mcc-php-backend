@@ -64,9 +64,14 @@ class news extends \mcc\obj\service\base {
     $edited = $data['edited'];
     // latest comment
     $table = \mcc\obj\news\repositories\news_comments::TABLE;
-    $query = $dbHandle->prepare("select time from $table order by time desc limit 0,1");
-    $data = $dbHandle->getDataRow($query);
-    $commented = $data['time'];
+    try {
+      $query = $dbHandle->prepare("select time from $table order by time desc limit 0,1");
+      $data = $dbHandle->getDataRow($query);
+      $commented = $data['time'];
+    } catch (\Exception $e) {
+      $commented = 0;
+    }
+
     return max(array($edited, $commented));
   }
 
@@ -89,7 +94,7 @@ class news extends \mcc\obj\service\base {
   }
 
   static public function setTimeToCurrent($id) {
-    $news = self::getById_($id);    
+    $news = self::getById_($id);
     $news->setTimeToCurrent();
   }
 

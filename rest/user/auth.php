@@ -1,6 +1,6 @@
 <?php
 
-namespace mcc\rest;
+namespace mcc\rest\user;
 
 class auth extends \mcc\obj\slimClass\service {
 

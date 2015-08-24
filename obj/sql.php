@@ -8,7 +8,7 @@ class sql {
   static $PASSWORD = null;
   static $DATABASE = null;
 
-  static public function init($database, $username, $password) {
+  static public function config($database, $username, $password) {
     self::$DATABASE = $database;
     self::$USERNAME = $username;
     self::$PASSWORD = $password;

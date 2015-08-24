@@ -1,20 +1,18 @@
 <?php
 
-namespace mcc\rest;
+namespace mcc\rest\dictionary;
 
-class dictionary extends \mcc\obj\slimClass\service  {
+class pub extends \mcc\obj\slimClass\service  {
 
   private $dict;
-  private $config;
-
-  public function __construct($path, $config = array()) {    
-    parent::__construct($path);
-    $this->config = $config;
+  static private $config;   
+  
+  static public function config($ar){
+    self::$config = $ar;
   }
-
-  public function middleware() {
-    // init parameters from config, glob for dictionaries to be included too
-    $this->dict = array_key_exists('dict', $this->config) ? $this->config['dict'] : null;
+  
+  public function middleware() {  
+    $this->dict = (is_array(self::$config) && array_key_exists('dict', self::$config)) ? self::$config['dict'] : null;
   }
 
   public function getJson() {
@@ -24,7 +22,7 @@ class dictionary extends \mcc\obj\slimClass\service  {
       throw new \Exception("LANGUAGE_FILE_NOT_FOUND", 404);
     }
     // load here all matching mcc dict
-    $mccDict = glob(__DIR__ . "/dictionary/*/$lang.json");
+    $mccDict = glob(__DIR__ . "/../../obj/dictionary/*/$lang.json");
     $dict = array();
     foreach ($mccDict as $file) {      
       $dict = array_merge($dict, json_decode(file_get_contents($file), true));

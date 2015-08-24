@@ -45,7 +45,7 @@ class mobileAngularUI {
   }
 
   static public function codePageMissing($code) {
-    $template = file_get_contents(__DIR__ . '/custom/codePageMissing.html');
+    $template = file_get_contents(__DIR__ . '/custom/templateMissing.html');
     $template = str_replace('{{CODE}}', $code, $template);
     return self::pageTemplate($template);
   }
@@ -111,7 +111,7 @@ class mobileAngularUI {
     }
     $top .= '</h1></div>';
     // code editor button
-    if ($codeEditor = annotations::hasAnnotation('DATA-PAGE', $template)) {
+    if ($codeEditor = annotations::hasAnnotation('DATABASE-TEMPLATE', $template)) {
       $top .= '<div class="list-group-item" ng-show="$root.isLoggedIn">' .
               '<button class="btn btn-primary" ng-click="showCodeEditor()">{{\'MODIFY_TEMPLATE\'| translate}}</button> ' .
               '<button class="btn btn-danger" ng-click="refresh()">{{\'REFRESH\'| translate}}</button>' .

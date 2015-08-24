@@ -1,19 +1,20 @@
 <?php
 
-namespace mcc\rest;
+namespace mcc\rest\file;
 
-class files extends \mcc\obj\slimClass\service {
+class pri extends \mcc\obj\slimClass\service {
 
   private $user;
   private $param;
+  static private $config;
 
-  public function __construct($path, $param) {
-    parent::__construct($path);
-    $this->param = $param;
+  static public function config($config) {
+    self::$config = $config;
   }
 
   public function middleware() {
     $this->user = \mcc\obj\user\services\user::initByCookie();
+    $this->param = self::$config;
   }
 
   public function post() {
@@ -21,7 +22,7 @@ class files extends \mcc\obj\slimClass\service {
         array_key_exists($_SERVER['SERVER_NAME'], $this->param['servers'])) {
       $base = $this->param['servers'][$_SERVER['SERVER_NAME']]['path'];
       $relPath = $this->param['servers'][$_SERVER['SERVER_NAME']]['relpath'];
-    } else {      
+    } else {
       $base = $this->param['path'];
       $relPath = $this->param['relpath'];
     }
@@ -36,7 +37,7 @@ class files extends \mcc\obj\slimClass\service {
     if ($isImage) {
       $size = getimagesize($fileName);
       $maxSize = isset($_POST['resize']) ? (int) $_POST['resize'] : 1000;
-     
+
       if (isset($_POST['crop'])) {
         $crop = json_decode($_POST['crop'], true);
         if (count($crop) == 2) {

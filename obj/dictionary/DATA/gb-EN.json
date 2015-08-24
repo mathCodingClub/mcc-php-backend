@@ -1,6 +1,6 @@
 {
   "DATA": {
-    "ADMIN_TITLE": "Manage data fields",
+    "ADMIN_TEMPLATE_TITLE": "Manage page templates",
     "CREATED_OK": "Data created successfully.",
     "DELETED_OK": "Data removed successfully.",
     "DOES_NOT_EXIST": "Data page does not exist",

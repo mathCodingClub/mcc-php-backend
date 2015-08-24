@@ -2,7 +2,7 @@
 
 namespace mcc\obj\data\repositories;
 
-class data extends \mcc\obj\repo\repobase {
+class template extends \mcc\obj\repo\repobase {
 
   protected $code_;
   protected $content_;
@@ -19,7 +19,7 @@ class data extends \mcc\obj\repo\repobase {
   protected $updated_;
 
   // constant
-  const TABLE = 'data';
+  const TABLE = 'templates';
 
   public function getTitleData() {
     return array('title' => $this->gettitle(), 

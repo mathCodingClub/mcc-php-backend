@@ -2,7 +2,7 @@
 
 namespace mcc\rest\data;
 
-class pri extends \mcc\obj\slimClass\service {
+class templatePri extends \mcc\obj\slimClass\service {
 
   private $user;
 
@@ -12,7 +12,7 @@ class pri extends \mcc\obj\slimClass\service {
 
   // delete
   public function delete($id) {
-    \mcc\obj\data\services\data::delete($id);
+    \mcc\obj\data\services\template::delete($id);
     $this->sendArrayAsJSON(array(
         'dict' => 'DATA.DELETED_OK',
         'msg' => 'Data removed ok.'));
@@ -22,8 +22,8 @@ class pri extends \mcc\obj\slimClass\service {
    * @route: /:code/code
    */
   public function deleteByCode($code) {
-    $data = \mcc\obj\data\services\data::getByCode($code);
-    \mcc\obj\data\services\data::delete($data);
+    $data = \mcc\obj\data\services\template::getByCode($code);
+    \mcc\obj\data\services\template::delete($data);
     $this->sendArrayAsJSON(array(
         'dict' => 'DATA.DELETED_OK',
         'msg' => 'Data removed ok.'));
@@ -31,7 +31,7 @@ class pri extends \mcc\obj\slimClass\service {
  
   public function get($id) {
     if (is_numeric($id)){
-      $data = \mcc\obj\data\services\data::getById($id);
+      $data = \mcc\obj\data\services\template::getById($id);
     }
     else {
       $this->getByCode($id);
@@ -45,7 +45,7 @@ class pri extends \mcc\obj\slimClass\service {
   public function getAllTitles(){
     $this->sendArrayAsJSON(array(
        'dict' => 'GET_OK',
-        'data' => \mcc\obj\data\services\data::getAllTitles()
+        'data' => \mcc\obj\data\services\template::getAllTitles()
     ));
   }
   
@@ -53,7 +53,7 @@ class pri extends \mcc\obj\slimClass\service {
    * @route: /:code/code
    */
   public function getByCode($code) {
-    $data = \mcc\obj\data\services\data::getByCode($code);
+    $data = \mcc\obj\data\services\template::getByCode($code);
     $this->sendArrayAsJSON(array(
         'dict' => 'GET_OK',
         'data' => $data->get()));
@@ -62,7 +62,7 @@ class pri extends \mcc\obj\slimClass\service {
   // post
   public function post() {
     $array = $this->getBodyAsJSON();
-    $data = \mcc\obj\data\services\data::create($array);
+    $data = \mcc\obj\data\services\template::create($array);
     $this->sendArrayAsJSON(array(
         'dict' => 'CREATED_OK',
         'data' => $data->get()));
@@ -72,7 +72,7 @@ class pri extends \mcc\obj\slimClass\service {
   public function put($id) {
     $array = $this->getBodyAsJSON();
     $this->idMissMatchCheck($id, $array['id']);
-    $data = \mcc\obj\data\services\data::update($id, $array);
+    $data = \mcc\obj\data\services\template::update($id, $array);
     $this->sendArrayAsJSON(array(
         'dict' => 'UPDATED_OK',
         'data' => $data->get()));

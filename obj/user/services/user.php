@@ -72,7 +72,7 @@ class user extends \mcc\obj\service\base {
 
   static private function getCookieValue($cookie) {
     if (is_null($cookie)) {
-      return $_COOKIE[\mcc\rest\auth::COOKIE];
+      return $_COOKIE[\mcc\rest\user\auth::COOKIE];
     }
     return $cookie;
   }
