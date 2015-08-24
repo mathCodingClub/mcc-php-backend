@@ -15,20 +15,24 @@ class twitter {
     self::$settings = $setting;
   }
 
+  
+  static public function fetch($url,$getfield){
+    $requestMethod = 'GET';
+    $twitter = new \TwitterAPIExchange(self::$settings);
+    return $twitter->setGetfield($getfield)
+            ->buildOauth($url, $requestMethod)
+            ->performRequest();    
+  }
+  
   static public function search($query, $count = 100, $maxid = null) {
     $key = self::$TMPKEY . 'search-' . $query . '-' . $maxid;    
     if (!\mcc\obj\cache\cache::isOlderThan($key, self::CACHE_TIME)) {
       return \mcc\obj\cache\cache::get($key);
     }
-
     $url = 'https://api.twitter.com/1.1/search/tweets.json';
     $getfield = "?q=$query&include_entities=true&count=$count";
     $getfield .= is_null($maxid) ? '' : "&max_id=$maxid";
-    $requestMethod = 'GET';
-    $twitter = new \TwitterAPIExchange(self::$settings);
-    $str = $twitter->setGetfield($getfield)
-            ->buildOauth($url, $requestMethod)
-            ->performRequest();
+    $str = self::fetch($url,$getfield);
     $data = self::parseReply($str);
     \mcc\obj\cache\cache::set($key, $data);
     return $data;
@@ -41,12 +45,8 @@ class twitter {
     }
     $url = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
     $getfield = "?screen_name=$user&count=$count";
-    $getfield .= is_null($maxid) ? '' : "&max_id=$maxid";
-    $requestMethod = 'GET';
-    $twitter = new \TwitterAPIExchange(self::$settings);
-    $str = $twitter->setGetfield($getfield)
-            ->buildOauth($url, $requestMethod)
-            ->performRequest();
+    $getfield .= is_null($maxid) ? '' : "&max_id=$maxid";    
+    $str = self::fetch($url,$getfield);
     $ar = json_decode($str, true);
     $data = self::parseTweets($ar);
     \mcc\obj\cache\cache::set($key, $data);
@@ -58,15 +58,10 @@ class twitter {
     if (!\mcc\obj\cache\cache::isOlderThan($key, self::CACHE_TIME)) {
       return \mcc\obj\cache\cache::get($key);
     }
-    $url = 'https://api.twitter.com/1.1/statuses/home_timeline.json';
-    $requestMethod = 'GET';
+    $url = 'https://api.twitter.com/1.1/statuses/home_timeline.json';    
     $getfield = "?&count=$count";
-    $getfield .= is_null($maxid) ? '' : "&max_id=$maxid";
-    $twitter = new \TwitterAPIExchange(self::$settings);
-    $str = $twitter->setGetfield($getfield)
-            ->buildOauth($url, $requestMethod)
-            ->performRequest();
-    error_log($maxid);
+    $getfield .= is_null($maxid) ? '' : "&max_id=$maxid";    
+    $str = self::fetch($url,$getfield);
     $ar = json_decode($str, true);
     if (array_key_exists('errors', $ar)) {
       throw new \mcc\obj\mccException(array(
