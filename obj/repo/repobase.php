@@ -125,8 +125,8 @@ abstract class repobase extends repodb {
 
   protected function setData($data) {
     $db = self::getDB();
-    $this->fixTypes($data);
-    $db->updateById(static::TABLE, $data, $this->id_);
+    $this->fixTypes($data);    
+    $db->updateById(static::TABLE, $data, $this->id_);    
     $this->initByid($this->id_);
   }
 
@@ -145,7 +145,7 @@ abstract class repobase extends repodb {
                 $value = $value / 1000; // heuristics, now assumes microtimeformat and converts to time
               }
               $data[$key] = $value;
-              //$data[$key] = date('Y-m-d H:i:s', $value);
+              $data[$key] = date('Y-m-d H:i:s', $value);
             }
         }
       } catch (\Exception $e) {

@@ -245,7 +245,7 @@ class sql {
     try {
       return $query->execute();
     } catch (\PDOException $e) {
-      $this->transactionRollBackOnError();
+      $this->transactionRollBackOnError();      
       throw new \mcc\obj\mccException(array('msg' => 'Error in insert.',
   'params' => array('query' => $query,
       'statement' => $statement),
@@ -272,11 +272,11 @@ class sql {
 
   public function updateById($table, $data, $id, $field = 'id') {
     $statement = "update $table set " . $this->getPDOupdateStr($data) . " where $field=:id";
-    error_log($statement);
-    error_log(json_encode($data));
+    // error_log($statement);
+    // error_log(json_encode($data));
     $query = $this->prepare($statement);
     $query->bindValue(':id', $id);
-    $this->bindArrayValue($query, $data);
+    $this->bindArrayValue($query, $data);    
     // return $query->execute();
     try {
       return $query->execute();
