@@ -51,28 +51,34 @@ abstract class service {
         }
         $httpMethod = $temp[0];
         // first check if this has custom route (remember httpmethod needs to be the first word)
-        $path = annotationReader::getRoute($method);                 
-        if (is_null($path)) {          
+        $path = annotationReader::getRoute($method);
+        if (is_null($path)) {
           $path = $this->getPathStr($method->name, $httpMethod) .
-                  $this->getParametersStr($method);          
-        }        
+              $this->getParametersStr($method);
+        }
         // remember in via method name is uppercase
-        array_push($this->routes, $httpMethod . ':' . $path);        
+        array_push($this->routes, $httpMethod . ':' . $path);
         if (strlen($this->path) == 1 && strlen($path) > 0) {
           $p = $path;
         } else {
           $p = $this->path . $path;
-        }        
-        if (method_exists($this, 'middleware')) {          
+        }
+        $mw = annotationReader::getMiddleware($method);
+        if (!is_null($mw)) {
+          error_log($mw . PHP_EOL);
+          $this->app->map($p, array($this, $mw), array($this, $method->name))->
+              via(strtoupper($httpMethod))->
+              name(uniqid());
+        } elseif (method_exists($this, 'middleware')) {
           $this->app->map($p, array($this, 'middleware'), array($this, $method->name))->
-                  via(strtoupper($httpMethod))->
-                  name(uniqid());
+              via(strtoupper($httpMethod))->
+              name(uniqid());
         } else {
           $this->app->map($p, array($this, $method->name))->
-                  via(strtoupper($httpMethod))->
-                  name(uniqid());
+              via(strtoupper($httpMethod))->
+              name(uniqid());
         }
-      }      
+      }
     }
   }
 

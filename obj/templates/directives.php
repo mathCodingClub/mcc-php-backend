@@ -4,7 +4,7 @@ namespace mcc\obj\templates;
 
 class directives {
 
-  static public function preload($translator = null) {
+  static public function preload($translator = null, $prefix = 'mcc.') {
 
     $files = glob(__DIR__ . '/directives/*.html');
     foreach ($files as $file) {
@@ -21,7 +21,7 @@ class directives {
         print '</script>' . PHP_EOL;
       }
 
-      print '<script type="text/ng-template" id="mcc.' . $dir . '">' . PHP_EOL;
+      print '<script type="text/ng-template" id="' . $prefix . $dir . '">' . PHP_EOL;
       print annotations::removeComments($template);
       print '</script>' . PHP_EOL;
     }

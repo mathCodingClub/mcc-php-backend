@@ -49,7 +49,7 @@ abstract class repobase extends repodb {
 
   /* Magic methods are mapped here and all operate only with database variables */
 
-  protected function create($data) {    
+  protected function create($data) {
     $db = self::getDB();
     $this->fixTypes($data);
     $db->insert(static::TABLE, $data);
@@ -100,7 +100,7 @@ abstract class repobase extends repodb {
     $data = $db->getById(static::TABLE, $value, $key);
     if (!isset($data['id'])) {
       throw new \mcc\obj\mccException(array('msg' => 'Data does not exist',
-  'type' => 'nodata'));
+      'type' => 'nodata'));
     }
     $var = $this->getDatabaseVariables();
     foreach ($var as $key) {
@@ -125,8 +125,8 @@ abstract class repobase extends repodb {
 
   protected function setData($data) {
     $db = self::getDB();
-    $this->fixTypes($data);    
-    $db->updateById(static::TABLE, $data, $this->id_);    
+    $this->fixTypes($data);
+    $db->updateById(static::TABLE, $data, $this->id_);
     $this->initByid($this->id_);
   }
 
@@ -139,13 +139,17 @@ abstract class repobase extends repodb {
       try {
         $property = $this->getPropertyType($key . '_');
         switch ($property) {
-          case 'timestamp';
+          case 'timestamp':
             if (is_int($value)) {
               if ($value > mktime(12, 0, 0, 1, 1, 2100)) {
                 $value = $value / 1000; // heuristics, now assumes microtimeformat and converts to time
               }
               $data[$key] = $value;
               $data[$key] = date('Y-m-d H:i:s', $value);
+            }
+          case 'json':
+            if (is_array($value)) {
+              $data[$key] = json_encode($value);
             }
         }
       } catch (\Exception $e) {
@@ -158,8 +162,10 @@ abstract class repobase extends repodb {
     foreach ($data as $key => $value) {
       $property = $this->getPropertyType($key . '_');
       switch ($property) {
-        case 'timestamp';
+        case 'timestamp':
           $data[$key] = \mcc\obj\utils\time::datetime2timestamp($value) * 1000;
+        case 'json':
+          $data[$key] = json_decode($value, true);
       }
     }
   }
