@@ -64,8 +64,7 @@ abstract class service {
           $p = $this->path . $path;
         }
         $mw = annotationReader::getMiddleware($method);
-        if (!is_null($mw)) {
-          error_log($mw . PHP_EOL);
+        if (!is_null($mw)) {          
           $this->app->map($p, array($this, $mw), array($this, $method->name))->
               via(strtoupper($httpMethod))->
               name(uniqid());
