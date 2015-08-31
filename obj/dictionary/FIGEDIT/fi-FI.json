@@ -1,0 +1,11 @@
+{
+    "FIGEDIT": {
+        "EDIT_TITLE": "Muokkaa kuvaa",
+        "NAME": "Kuvan nimi",
+        "MAX_DIM": "Maksimi dimensio",
+        "READING": "Ladataan kuvaa. Ole hyv\u00e4 odota!",
+        "UPLOADING": "Ladataan kuvaa palvelimelle. Ole hyv\u00e4 odota!",
+        "UPLOADED": "Tiedosto ladattu. Palataan editoriin!",
+        "UPLOADED_ERROR": "Virhe kuvan lataamisessa palvelimelle. Palataan editoriin."
+    }
+}

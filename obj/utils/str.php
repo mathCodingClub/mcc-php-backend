@@ -11,7 +11,7 @@ class str {
     foreach ($replacers as $key => $value) {
       $str = preg_replace('#' . $key . '#', $value, $str);
     }
-    return self::removeAccents($str);
+    return strip_tags(self::removeAccents($str));
   }
 
   // convert subscripts to latex subscripts, italic to italics etc

@@ -1,6 +1,6 @@
 {
-  "USER": {
-    "ADMIN_TITLE": "Accounts",
-    "ADMIN_SUBTITLE": "Manage accounts"
-  }
+    "USER": {
+        "ADMIN_TITLE": "Accounts",
+        "ADMIN_SUBTITLE": "Manage accounts"
+    }
 }

@@ -1,16 +1,15 @@
 {
-  "LOGIN":
-          {
-            "LOGGED_IN_AS": "Kirjautuneena",
-            "LOGIN": "Kirjaudu",
-            "LOGIN_FALSE_CREDENTIALS": "Väärä käyttäjätunnus tai salasana. Kirjautuminen ei onnistunut.",
-            "LOGIN_SUCCESS": "Sisäänkirjautuminen onnistui.",
-            "LOGIN_WAIT": "Odota, kirjaudutaan sisään.",
-            "LOGGED_OUT": "Uloskirjautuminen onnistui.",
-            "LOGOUT": "Kirjaudu ulos",            
-            "NOT_LOGGED_IN": "Ei sisäänkirjautuneena.",
-            "NO_SESSION": "Ei sessiota. Kirjaudu sisään.",
-            "PASSWORD": "Salasana",
-            "USERNAME": "Käyttäjätunnus"
-          }
+    "LOGIN": {
+        "LOGGED_IN_AS": "Kirjautuneena",
+        "LOGIN": "Kirjaudu",
+        "LOGIN_FALSE_CREDENTIALS": "V\u00e4\u00e4r\u00e4 k\u00e4ytt\u00e4j\u00e4tunnus tai salasana. Kirjautuminen ei onnistunut.",
+        "LOGIN_SUCCESS": "Sis\u00e4\u00e4nkirjautuminen onnistui.",
+        "LOGIN_WAIT": "Odota, kirjaudutaan sis\u00e4\u00e4n.",
+        "LOGGED_OUT": "Uloskirjautuminen onnistui.",
+        "LOGOUT": "Kirjaudu ulos",
+        "NOT_LOGGED_IN": "Ei sis\u00e4\u00e4nkirjautuneena.",
+        "NO_SESSION": "Ei sessiota. Kirjaudu sis\u00e4\u00e4n.",
+        "PASSWORD": "Salasana",
+        "USERNAME": "K\u00e4ytt\u00e4j\u00e4tunnus"
+    }
 }

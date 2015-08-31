@@ -1,0 +1,5 @@
+{
+    "TWITTER": {
+        "RATE_LIMIT_EXCEEDED": "Twitter API has been overused during the last 15 minutes. Data cannot be fetched. Please try again later."
+    }
+}

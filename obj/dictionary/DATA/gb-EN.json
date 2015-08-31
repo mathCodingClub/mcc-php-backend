@@ -1,10 +1,10 @@
 {
-  "DATA": {
-    "ADMIN_TEMPLATE_TITLE": "Manage page templates",
-    "CREATED_OK": "Data created successfully.",
-    "DELETED_OK": "Data removed successfully.",
-    "DOES_NOT_EXIST": "Data page does not exist",
-    "GET_OK": "Data fetched successfully.",    
-    "UPDATED_OK": "Data updated successfully."    
-  }
- }
+    "DATA": {
+        "ADMIN_TEMPLATE_TITLE": "Manage page templates",
+        "CREATED_OK": "Data created successfully.",
+        "DELETED_OK": "Data removed successfully.",
+        "DOES_NOT_EXIST": "Data page does not exist",
+        "GET_OK": "Data fetched successfully.",
+        "UPDATED_OK": "Data updated successfully."
+    }
+}

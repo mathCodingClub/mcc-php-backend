@@ -1,24 +1,24 @@
 {
-  "TRIAL": {
-    "EVENTS": {              
-        "CATEGORY_CREATE": "Luo kategoria",
-        "CATEGORY_MODIFY": "Muokkaa kategoriaa",
-        "CATEGORY_REMOVED_OK": "Kategoria poistettu onnistuneesti.",
-        "COMPETITION_ADD_RIDER_FILL_FIELDS": "Syötä etunimi ja sukunimi lisätäksesi uuden kilpailijan",
-        "COMPETITION_CREATE": "Luo kilpailu",
-        "COMPETITION_MODIFY": "Muokkaa kilpailua",
-        "COMPETITION_NUMBERS_SET": "Kilpailunumerot asetettu",
-        "COMPETITION_REMOVED_OK": "Kilpailu poistettu onnistuneesti.",
-        "EVENT_CREATE": "Luo tapahtuma",
-        "EVENT_MODIFY": "Muokkaa tapahtumaa",
-        "FILL_ALL_FIELDS": "Täytä kaikki kentät ilmoittautuaksesi.",
-        "NEW_RIDER_ADDED_TO_COMPETITION": "Uusi kuljettaja lisätty kilpailuun onnistuneesti.",
-        "PARTICIPATION_REMOVED_OK": "Osallistuminen poistettu onnistuneesti.",
-        "SIGNING_UP": "Ilmoittaudutaan. Odota.",
-        "SIGNUP": "Ilmoittaudut",
-        "SIGNUP_ADDED_TO_COMPETITION": "Ilmoittautuja liitetty kilpailuun onnistuneesti",
-        "SIGNUP_FAILED": "Tapahtumaan ilmoittautuminen epäonnistui tuntemattomasta syystä. Ole hyvä ja ilmoittaudu sähköpostilla: antti@stenvall.fi.",
-        "SIGNUP_OK": "Tapahtumaan ilmoittauduttu onnistuneesti. Kiitos ilmoittautumisesta."        
-    }    
-  }
+    "TRIAL": {
+        "EVENTS": {
+            "CATEGORY_CREATE": "Luo kategoria",
+            "CATEGORY_MODIFY": "Muokkaa kategoriaa",
+            "CATEGORY_REMOVED_OK": "Kategoria poistettu onnistuneesti.",
+            "COMPETITION_ADD_RIDER_FILL_FIELDS": "Sy\u00f6t\u00e4 etunimi ja sukunimi lis\u00e4t\u00e4ksesi uuden kilpailijan",
+            "COMPETITION_CREATE": "Luo kilpailu",
+            "COMPETITION_MODIFY": "Muokkaa kilpailua",
+            "COMPETITION_NUMBERS_SET": "Kilpailunumerot asetettu",
+            "COMPETITION_REMOVED_OK": "Kilpailu poistettu onnistuneesti.",
+            "EVENT_CREATE": "Luo tapahtuma",
+            "EVENT_MODIFY": "Muokkaa tapahtumaa",
+            "FILL_ALL_FIELDS": "T\u00e4yt\u00e4 kaikki kent\u00e4t ilmoittautuaksesi.",
+            "NEW_RIDER_ADDED_TO_COMPETITION": "Uusi kuljettaja lis\u00e4tty kilpailuun onnistuneesti.",
+            "PARTICIPATION_REMOVED_OK": "Osallistuminen poistettu onnistuneesti.",
+            "SIGNING_UP": "Ilmoittaudutaan. Odota.",
+            "SIGNUP": "Ilmoittaudut",
+            "SIGNUP_ADDED_TO_COMPETITION": "Ilmoittautuja liitetty kilpailuun onnistuneesti",
+            "SIGNUP_FAILED": "Tapahtumaan ilmoittautuminen ep\u00e4onnistui tuntemattomasta syyst\u00e4. Ole hyv\u00e4 ja ilmoittaudu s\u00e4hk\u00f6postilla: antti@stenvall.fi.",
+            "SIGNUP_OK": "Tapahtumaan ilmoittauduttu onnistuneesti. Kiitos ilmoittautumisesta."
+        }
+    }
 }

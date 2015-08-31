@@ -1,12 +1,11 @@
 {
-  "FIGEDIT":
-          {
-            "EDIT_TITLE": "Modify image",
-            "NAME": "Figure name",            
-            "MAX_DIM": "Maximum dimension",
-            "READING": "Loading image to edit. Please Wait!",
-            "UPLOADING": "Uploading image to server. Please Wait!",
-            "UPLOADED": "File uploaded. Returning to editor!",
-            "UPLOADED_ERROR": "Error in uploading file. Return to editor."
-          }
+    "FIGEDIT": {
+        "EDIT_TITLE": "Modify image",
+        "NAME": "Figure name",
+        "MAX_DIM": "Maximum dimension",
+        "READING": "Loading image to edit. Please Wait!",
+        "UPLOADING": "Uploading image to server. Please Wait!",
+        "UPLOADED": "File uploaded. Returning to editor!",
+        "UPLOADED_ERROR": "Error in uploading file. Return to editor."
+    }
 }

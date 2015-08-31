@@ -1,5 +1,6 @@
 {
-  "USER": {
-    "ADMIN_TITLE": "Käyttäjätilit"
-  }
+    "USER": {
+        "ADMIN_TITLE": "K\u00e4ytt\u00e4j\u00e4tilit",
+        "ADMIN_SUBTITLE": "Muokkaa k\u00e4ytt\u00e4j\u00e4tilej\u00e4"
+    }
 }

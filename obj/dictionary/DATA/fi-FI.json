@@ -1,10 +1,10 @@
 {
-  "DATA": {
-    "ADMIN_TEMPLATE_TITLE": "Muokkaa sivujen templateja",
-    "CREATED_OK": "Data lisätty onnistuneesti.",
-    "DELETED_OK": "Data poistettu onnistuneesti.",
-    "DOES_NOT_EXIST": "Datasivua ei ole olemassa",
-    "GET_OK": "Data haettu onnistuneesti.",
-    "UPDATED_OK": "Data päivitetty onnistuneesti."    
-  }
- }
+    "DATA": {
+        "ADMIN_TEMPLATE_TITLE": "Muokkaa sivujen templateja",
+        "CREATED_OK": "Data lis\u00e4tty onnistuneesti.",
+        "DELETED_OK": "Data poistettu onnistuneesti.",
+        "DOES_NOT_EXIST": "Datasivua ei ole olemassa",
+        "GET_OK": "Data haettu onnistuneesti.",
+        "UPDATED_OK": "Data p\u00e4ivitetty onnistuneesti."
+    }
+}

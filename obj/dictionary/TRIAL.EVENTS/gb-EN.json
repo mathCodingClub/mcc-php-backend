@@ -1,0 +1,24 @@
+{
+    "TRIAL": {
+        "EVENTS": {
+            "CATEGORY_CREATE": "Create category",
+            "CATEGORY_MODIFY": "Modify category",
+            "CATEGORY_REMOVED_OK": "Category removed successfully.",
+            "COMPETITION_ADD_RIDER_FILL_FIELDS": "Enter given name and family name to add new competitor",
+            "COMPETITION_CREATE": "Create competition",
+            "COMPETITION_MODIFY": "Modify competition",
+            "COMPETITION_NUMBERS_SET": "Competition numbers set",
+            "COMPETITION_REMOVED_OK": "Competition removed successfully.",
+            "EVENT_CREATE": "Create event",
+            "EVENT_MODIFY": "Modify event",
+            "FILL_ALL_FIELDS": "Fill in all the fields to sign-up.",
+            "NEW_RIDER_ADDED_TO_COMPETITION": "New rider added to competition successfully.",
+            "PARTICIPATION_REMOVED_OK": "Participation removed successfully.",
+            "SIGNING_UP": "Signing-up. Please wait.",
+            "SIGNUP": "You are signing-up",
+            "SIGNUP_ADDED_TO_COMPETITION": "Sign-up added to competition successfully",
+            "SIGNUP_FAILED": "Sign-up failed for an unknown reason. Please sign-up by e-mail to antti@stenvall.fi.",
+            "SIGNUP_OK": "Sign-up saved successfully. Thanks you."
+        }
+    }
+}
