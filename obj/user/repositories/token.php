@@ -31,8 +31,10 @@ class token extends \mcc\obj\repo\repobase {
       self::tokenFailed('Does not exist.');
     }    
     if ($token->getTime() < ceil(1000*(time() - 60))) {
+      /* debug later
       error_log('Veikko');
-      error_log('TIME ' . time() . ':' . $token-getTime());
+      error_log('TIME ' . time() . ':' . $token->getTime());       
+       */
       self::tokenFailed('Too old.');
     }
     $user = new user($token->getUser_id());
