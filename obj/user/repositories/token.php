@@ -34,8 +34,8 @@ class token extends \mcc\obj\repo\repobase {
       /* debug later
       error_log('Veikko');
       error_log('TIME ' . time() . ':' . $token->getTime());       
-       */
       self::tokenFailed('Too old.');
+       */      
     }
     $user = new user($token->getUser_id());
     $db->deleteById(static::TABLE, $user->getId(), 'user_id');
