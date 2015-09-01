@@ -17,7 +17,7 @@ class templatePub extends \mcc\obj\slimClass\service {
       print \mcc\obj\templates\mobileAngularUI::codePageMissing($code);
       return;
     }
-    $content = "<!-- @DATABASE-TEMPLATE -->\n" . $data->getcontent();
+    $content = "<!-- @DATABASE-TEMPLATE -->\n" . $data->getContent();
     $this->produce($content);
   }
 

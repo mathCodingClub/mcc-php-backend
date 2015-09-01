@@ -31,6 +31,8 @@ class token extends \mcc\obj\repo\repobase {
       self::tokenFailed('Does not exist.');
     }    
     if ($token->getTime() < ceil(1000*(time() - 60))) {
+      error_log('Veikko');
+      error_log('TIME ' . time() . ':' . $token-getTime());
       self::tokenFailed('Too old.');
     }
     $user = new user($token->getUser_id());
@@ -38,7 +40,7 @@ class token extends \mcc\obj\repo\repobase {
     return $user;
   }  
 
-  static private function tokenFailed($reason) {
+  static private function tokenFailed($reason) {    
     throw new \mcc\obj\mccException(array('msg' => "Token auth failed. ($reason)",
     'code' => 404,
     'dict' => 'TOKEN_AUTH_FAILED'));
