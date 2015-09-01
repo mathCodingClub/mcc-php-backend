@@ -53,6 +53,7 @@ class mobileAngularUI {
   static public function convertTemplate(&$template, &$controller) {
 
     // do nothing if blank annotation is included
+    $template = annotations::setContainerClasses('list-group-item', $template);
     if (\mcc\obj\templates\annotations::hasAnnotation('BLANK', $template)) {
       return;
     }
@@ -88,6 +89,7 @@ class mobileAngularUI {
 
   static public function pageTemplate($template) {
     $top = '';
+    $template = annotations::setContainerClasses('list-group-item', $template);
     if ($isolatedScope = annotations::hasAnnotation('ISOLATED-SCOPE', $template)) {
       $top .= '<div mcc-isolated-scope>';
     }
@@ -150,8 +152,7 @@ class mobileAngularUI {
     }
     if ($isolatedScope) {
       $bottom .= '</div>';
-    }
-    $template = annotations::setContainerClasses('list-group-item', $template);
+    }    
     return $top . $template . $bottom;
   }
 
