@@ -24,6 +24,7 @@
     "FILE_UPLOAD_ERROR": "File could not be loaded for an unknown reason.",
     "FILE_UPLOADED": "File uploaded to server.",
     "FILE_UPLOADING": "Uploading file.",
+    "INDENT": "Indent",
     "INFO": "Info",
     "LANGUAGE_FILE_NOT_FOUND": "Language does not exist.",
     "MAKE": "Make",
