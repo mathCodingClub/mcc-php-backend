@@ -28,8 +28,8 @@ class templatePub extends \mcc\obj\slimClass\service {
 
   private function produce($content) {
     $this->setCT(self::CT_HTML);
-    if (!\mcc\obj\templates\annotations::hasAnnotation('DATABASE-TEMPLATE', $content) &&
-        (\mcc\obj\templates\annotations::hasAnnotation('BLANK', $content) ||
+    if (\mcc\obj\templates\annotations::hasAnnotation('BLANK', $content) ||
+        (!\mcc\obj\templates\annotations::hasAnnotation('DATABASE-TEMPLATE', $content) &&
         !\mcc\obj\templates\annotations::hasAnnotation('TITLE', $content))
     ) {
       print \mcc\obj\templates\annotations::setContainerClasses('list-group-item', $content);
