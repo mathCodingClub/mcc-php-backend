@@ -147,10 +147,12 @@ abstract class repobase extends repodb {
               $data[$key] = $value;
               $data[$key] = date('Y-m-d H:i:s', $value);
             }
+            break;
           case 'json':
             if (is_array($value)) {
               $data[$key] = json_encode($value);
             }
+            break;
         }
       } catch (\Exception $e) {
         unset($data[$key]);
@@ -164,8 +166,10 @@ abstract class repobase extends repodb {
       switch ($property) {
         case 'timestamp':
           $data[$key] = \mcc\obj\utils\time::datetime2timestamp($value) * 1000;
+          break;
         case 'json':
           $data[$key] = json_decode($value, true);
+          break;
       }
     }
   }
