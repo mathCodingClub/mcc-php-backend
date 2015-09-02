@@ -21,15 +21,17 @@ class templatePub extends \mcc\obj\slimClass\service {
     $this->produce($content);
   }
 
-  public function getLocal($template) {              
-    $template = file_get_contents(self::$config['dir'] . '/' . $template . '.html');    
+  public function getLocal($template) {
+    $template = file_get_contents(self::$config['dir'] . '/' . $template . '.html');
     $this->produce($template);
   }
 
   private function produce($content) {
-    $this->setCT(self::CT_HTML);    
-    if (\mcc\obj\templates\annotations::hasAnnotation('BLANK', $content) ||
-            !\mcc\obj\templates\annotations::hasAnnotation('TITLE', $content)) {
+    $this->setCT(self::CT_HTML);
+    if (!\mcc\obj\templates\annotations::hasAnnotation('DATABASE-TEMPLATE', $content) &&
+        (\mcc\obj\templates\annotations::hasAnnotation('BLANK', $content) ||
+        !\mcc\obj\templates\annotations::hasAnnotation('TITLE', $content))
+    ) {
       print \mcc\obj\templates\annotations::setContainerClasses('list-group-item', $content);
       return;
     }
