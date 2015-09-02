@@ -82,9 +82,8 @@ password.second = '';
         <option value="external">{{'USER.ROLE_EXTERNAL'|| translate}}</option>        
       </select>         
 
-      <button class="btn btn-primary" ng-click="update(euser)" ng-show="euser.id">{{'SAVE'| translate}}</button> 
-
       <button class="btn btn-danger pull-right" ng-click="delete(euser.id)" ng-show="euser.id">{{'DELETE'| translate}}</button> 
+      <button class="btn btn-primary" ng-click="update(euser)" ng-show="euser.id">{{'SAVE'| translate}}</button> 
 
       <button class="btn btn-primary" ng-click="create(euser)" ng-hide="euser.id">{{'CREATE'| translate}}</button> 
 
