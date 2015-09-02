@@ -41,6 +41,14 @@ abstract class base {
     $class = static::REPO;
     return new $class($id);
   }
+  
+  static protected function getBy_($key,$value){
+    $class = static::REPO;
+    $obj = new $class();
+    $fun = 'initBy' . $key;
+    $obj->$fun($value);
+    return $obj;
+  }
 
   static protected function save_($data) {
     $class = static::REPO;
