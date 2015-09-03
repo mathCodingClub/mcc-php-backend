@@ -1,46 +1,51 @@
 <div overlay="mcc.loginOverlay">
+  <div mcc-mouse-enter="focus">
+    <div style="max-width: 300px; margin: auto; display: table;"
+         ng-hide="$root.isLoggedIn">
 
+      <alert type="alert alert-info" ng-show="loginInProgress" class="text-center">
+        {{"LOGIN.LOGIN_WAIT"| translate}}.
+      </alert>    
 
-  <div style="max-width: 300px; margin: auto; display: table;" ng-hide="$root.isLoggedIn">
+      <div ng-hide="loginInProgress">      
+        <h3 class="overlay-title">{{"LOGIN.LOGIN"| translate}}</h3>       
+        <p>
+          <b>{{"LOGIN.USERNAME"| translate}}</b>
+          <input             
+            id="mccLoginOverlayUsername"
+            bs-form-control
+            type="text" 
+            label=""
+            ng-model="loginform.username"                              
+            placeholder="{{'LOGIN.USERNAME'| translate}}"
+            />
+        </p>
+        <p>
+          <b>{{"LOGIN.PASSWORD"| translate}}</b>
+          <input       
+            bs-form-control
+            type="password" 
+            label=""
+            ng-model="loginform.password"                   
+            placeholder="{{'LOGIN.PASSWORD'| translate}}"
+            mcc-bind-keys="enter"
+            bind-keys-enter="clickLogin"
+            />
+        </p>
+        <p>
+          <span class="btn btn-primary" ng-click="clickLogin()">{{"LOGIN.LOGIN"| translate}}</span>
+          <span class="btn btn-default" toggle="off" bubble target="mcc.loginOverlay">{{"CANCEL"| translate}}</span>
+        </p>  
+      </div>
+    </div>
 
-    <alert type="alert alert-info" ng-show="loginInProgress" class="text-center">
-      {{"LOGIN.LOGIN_WAIT"| translate}}.
-    </alert>    
-
-    <div ng-hide="loginInProgress">      
-      <h3 class="overlay-title">{{"LOGIN.LOGIN"| translate}}</h3>       
+    <div style="max-width: 500px; margin: auto; display: table;" ng-show="$root.isLoggedIn">
+      {{"LOGIN.LOGGED_IN_AS"| translate}} <b>{{$root.user.givenName}} {{$root.user.familyName}}</b>
+      <br><br>
       <p>
-        <b>{{"LOGIN.USERNAME"| translate}}</b>
-        <input 
-          bs-form-control
-          type="text" 
-          label=""
-          ng-model="loginform.username"                              
-          placeholder="{{'LOGIN.USERNAME'| translate}}"
-          />
-      </p>
-      <p>
-        <b>{{"LOGIN.PASSWORD"| translate}}</b>
-        <input       
-          bs-form-control
-          type="password" 
-          label=""
-          ng-model="loginform.password"                   
-          placeholder="{{'LOGIN.PASSWORD'| translate}}"
-          />
-      </p>
-      <p>
-        <span class="btn btn-primary" ng-click="clickLogin()">{{"LOGIN.LOGIN"| translate}}</span>
+        <span class="btn btn-primary" ng-click="clickLogout()">{{"LOGIN.LOGOUT"| translate}}</span>
         <span class="btn btn-default" toggle="off" bubble target="mcc.loginOverlay">{{"CANCEL"| translate}}</span>
-      </p>  
+      </p>      
     </div>
   </div>
-
-  <div style="max-width: 500px; margin: auto; display: table;" ng-show="$root.isLoggedIn">
-    {{"LOGIN.LOGGED_IN_AS"| translate}} <b>{{$root.user.givenName}} {{$root.user.familyName}}</b>
-    <br><br>
-    <p>
-      <span class="btn btn-primary" ng-click="clickLogout()">{{"LOGIN.LOGOUT"| translate}}</span>
-      <span class="btn btn-default" toggle="off" bubble target="mcc.loginOverlay">{{"CANCEL"| translate}}</span>
-    </p>      
-  </div>
+</div>

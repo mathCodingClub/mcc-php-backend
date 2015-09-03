@@ -18,12 +18,20 @@ if (in_array('-m', $argv)) {
   $conf = array('pathJs' => "$root/js-mcc/directives/$directive.js",
       'pathHtml' => "$root/php/mcc/obj/templates/directives/$directive.html",
       'templateUrl' => "mcc.$directive",
+      'app' => "angular.module('mcc')",      
       'directive' => 'mcc' . ucfirst($directive));
 } else {
   $conf = array('pathJs' => "$root/js/directives/$directive.js",
       'pathHtml' => "$root/templates/$directive.html",
       'templateUrl' => "rest/mcc/templates/local/$directive",
+      'app' => "app",      
       'directive' => $directive);
+}
+$conf['template'] = "\ntemplateUrl: '{{templateUrl}}',";
+
+// no template, so remove it
+if (in_array('-j',$argv)){
+  $conf['template'] = '';
 }
 
 $conf['restrict'] = 'AE';

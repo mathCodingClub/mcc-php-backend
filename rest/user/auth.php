@@ -23,7 +23,7 @@ class auth extends \mcc\obj\slimClass\service {
     $this->sendArrayAsJSON(
             array('msg' => 'Successfully logged in.',
                 'dict' => 'LOGIN.LOGIN_SUCCESS',
-                'user' => array('name' => $user->getName())));
+                'user' => $user->get()));
   }
 
   public function get() {
