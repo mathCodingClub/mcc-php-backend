@@ -10,7 +10,7 @@ class mobileAngularUI {
     self::$sa = json_decode(file_get_contents($sa), true);
     self::setServerDependentParameters();
     print "<!DOCTYPE html>\n<html><head>";
-    print self::embed(__DIR__ . '/mobileAngularUI/meta.html');
+    print annotations::embed(__DIR__ . '/mobileAngularUI/meta.html', self::$sa);
     print '<script> var CONFIG = {' .
             ' nav: ' . json_encode(self::$sa['nav'], JSON_PRETTY_PRINT) .
             ', sideBarLeftBottomImage: ' . json_encode(self::$sa['sideBarLeftBottomImage'], JSON_PRETTY_PRINT) .
@@ -29,17 +29,17 @@ class mobileAngularUI {
     directives::preload($fun);
 
     print '<toaster-container toaster-options="{\'time-out\': 3000,\'spinner\':false}"></toaster-container>';
-    print self::embed(__DIR__ . '/mobileAngularUI/sideBars.html');
+    print annotations::embed(__DIR__ . '/mobileAngularUI/sideBars.html', self::$sa);
     print '<div class="app">';
-    print self::embed(__DIR__ . '/mobileAngularUI/topBar.html', self::$sa['topBar']);
+    print annotations::embed(__DIR__ . '/mobileAngularUI/topBar.html', self::$sa['topBar']);
     if (array_key_exists('bottomBarTemplateUrl', self::$sa)) {
-      print self::embed(__DIR__ . '/mobileAngularUI/bottomBarTemplate.html');
+      print annotations::embed(__DIR__ . '/mobileAngularUI/bottomBarTemplate.html', self::$sa);
       print PHP_EOL . PHP_EOL . PHP_EOL;
     }
-    print self::embed(__DIR__ . '/mobileAngularUI/appBody.html');
+    print annotations::embed(__DIR__ . '/mobileAngularUI/appBody.html', self::$sa);
     print '</div>';
     if (array_key_exists('ga', self::$sa)) {
-      print self::embed(__DIR__ . '/mobileAngularUI/ga.html', self::$sa['ga']);
+      print annotations::embed(__DIR__ . '/mobileAngularUI/ga.html', self::$sa['ga']);
     }
     print '</body></html>';
   }
@@ -68,7 +68,7 @@ class mobileAngularUI {
         $restrict = $setRestrict;
       }
       $conf = array('NAME' => $simple, 'RESTRICT' => $restrict, 'UCFNAME' => ucfirst($simple));
-      $controller = self::embed(__DIR__ . '/custom/mccSimpleTemplate.js', $conf);
+      $controller = annotations::embed(__DIR__ . '/custom/mccSimpleTemplate.js', $conf);
     }
     if ($directive = annotations::getValue('MCC-DIRECTIVE', $template, false)) {
       $restrict = 'AE';
@@ -83,7 +83,7 @@ class mobileAngularUI {
         array_push($scopeArray,$key . ": '=$key'");
       }
       $conf['SCOPE-MAP'] = '{' . implode(",\n",$scopeArray) . '}';      
-      $controller = self::embed(__DIR__ . '/custom/mccDirectiveScopeMap.js', $conf);      
+      $controller = annotations::embed(__DIR__ . '/custom/mccDirectiveScopeMap.js', $conf);      
     }
   }
 
@@ -154,21 +154,6 @@ class mobileAngularUI {
       $bottom .= '</div>';
     }    
     return $top . $template . $bottom;
-  }
-
-  static private function embed($file, $sa = null) {
-    $text = file_get_contents($file);
-    if (is_null($sa)) {
-      $sa = self::$sa;
-    }
-    while (true) {
-      preg_match('@({{)([a-zA-Z-]*)(}})@', $text, $ar);
-      if (count($ar) == 0) {
-        break;
-      }
-      $text = str_replace($ar[1] . $ar[2] . $ar[3], $sa[$ar[2]], $text);
-    }
-    return $text;
   }
 
   static private function setServerDependentParameters() {

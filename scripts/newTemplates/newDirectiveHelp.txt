@@ -1,0 +1,22 @@
+
+----
+
+newDirective.php      MANUAL      newDirective.php
+
+----
+
+NAME
+  newDirective.php -- Create new directive either to js-mcc or to current project
+
+SYNOPSIS
+  php newDirective.php directiveName [-option [value]]
+  
+DESCRIPTION
+  
+  -h  create only html file
+  -j  create only javascript
+  -m  if parent is mcc, default is project
+  -r  restrict directive to given value (default AE)
+  -t  create annotations for full title slide  
+
+----
