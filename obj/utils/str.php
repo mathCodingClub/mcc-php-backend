@@ -6,12 +6,12 @@ class str {
 
   static public function normalize($str) {
     //$replacers = array('ä' => 'a', 'ö' => 'o', '\s' => '-');
-    $replacers = array('\s' => '-');
-    $str = strtolower($str);
+    $replacers = array('\s' => '-','[,&.:\\//]|(&amp;)' => '');
+    $str = strip_tags(strtolower($str));
     foreach ($replacers as $key => $value) {
       $str = preg_replace('#' . $key . '#', $value, $str);
     }
-    return strip_tags(self::removeAccents($str));
+    return self::removeAccents($str);
   }
 
   // convert subscripts to latex subscripts, italic to italics etc
@@ -19,6 +19,7 @@ class str {
     $replacers = array(
         '<sub>([0-9]*)</sub>' => '$_{$1}$',
         '<sub>(.*)</sub>' => '$_{\text{$1}}$',
+        '&amp;' => '\&',
         '<i>(.*)</i>' => '$$1$');
     foreach ($replacers as $key => $value) {
       $str = preg_replace('#' . $key . '#', $value, $str);
@@ -58,7 +59,7 @@ class str {
         chr(195) . chr(177) => 'n', chr(195) . chr(178) => 'o',
         chr(195) . chr(179) => 'o', chr(195) . chr(180) => 'o',
         chr(195) . chr(181) => 'o', chr(195) . chr(182) => 'o',
-        chr(195) . chr(182) => 'o', chr(195) . chr(185) => 'u',
+        chr(195) . chr(182) => '\"{o}', chr(195) . chr(185) => 'u',
         chr(195) . chr(186) => 'u', chr(195) . chr(187) => 'u',
         chr(195) . chr(188) => 'u', chr(195) . chr(189) => 'y',
         chr(195) . chr(191) => 'y',

@@ -1,73 +1,76 @@
-<div class="scrollable-content scrollable">  
-  <div class="mcc-nice-width mcc-editor-container" ng-init="">    
-    <div ng-show="show == 'editor'">
-      <h3 class="overlay-title">Muokkaa tietoja</h3>                          
+<div overlay="mcc.overlayEditorData">
 
-      <p>
-        <b>{{"TITLE"| translate}}</b>
-        <input 
-          bs-form-control
-          type="title" 
-          label=""
-          ng-model="data.title"                 
-          placeholder="{{'TITLE'| translate}}"
-          size="200"
-          />
-      </p>
+  <div class="scrollable-content scrollable">  
+    <div class="mcc-nice-width mcc-editor-container" ng-init="">    
+      <div ng-show="show == 'editor'">
+        <h3 class="overlay-title">Muokkaa tietoja</h3>                          
 
-      <p>
-        <b>{{"CONTENTS"| translate}}</b>
-      <div ui-ace="{         
-           useWrapMode: true,
-           mode: 'html',
-           theme: 'github',
-           tabSize: 2,
-           firstLineNumber: 1      
-           }"         
-           id="aceEditor_content"
-           ng-show="editorACE"
-           mcc-file-drop-zone
-           file-drop-zone-on-drop="fileReceived"                    
-           mcc-bind-keys="ctrl-s"
-           bind-keys-ctrl-s="save"
-           ng-model="data.content"
-           style="height: 600px; text-align: left; border: 1px solid #ccc; border-radius: 4px;">
-      </div>
+        <p>
+          <b>{{"TITLE"| translate}}</b>
+          <input 
+            bs-form-control
+            type="title" 
+            label=""
+            ng-model="data.title"                 
+            placeholder="{{'TITLE'| translate}}"
+            size="200"
+            />
+        </p>
 
-      <div ng-hide="editorACE">
+        <p>
+          <b>{{"CONTENTS"| translate}}</b>
+        <div ui-ace="{         
+             useWrapMode: true,
+             mode: 'html',
+             theme: 'github',
+             tabSize: 2,
+             firstLineNumber: 1      
+             }"         
+             id="aceEditor_content"
+             ng-show="editorACE"
+             mcc-file-drop-zone
+             file-drop-zone-on-drop="fileReceived"                    
+             mcc-bind-keys="ctrl-s"
+             bind-keys-ctrl-s="save"
+             ng-model="data.content"
+             style="height: 600px; text-align: left; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
 
-        <textarea style="width: 100%; height: 600px;"
-                  class="my-bs-style"
-                  mcc-file-drop-zone                  
-                  file-drop-zone-on-drop="fileReceived"                  
-                  mcc-bind-keys="ctrl-s"
-                  bind-keys-ctrl-s="save"
-                  ng-model="data.content"
-                  ></textarea>
-      </div>
-      
-      <br><br>
-      <p>
+        <div ng-hide="editorACE">
 
-        <button class="btn btn-primary" ng-click="save()">{{"SAVE"| translate}}</button>
-        
-        
-        <!-- <button class="btn btn-primary" ng-click="indent()">{{"INDENT"| translate}}</button> -->
+          <textarea style="width: 100%; height: 600px;"
+                    class="my-bs-style"
+                    mcc-file-drop-zone                  
+                    file-drop-zone-on-drop="fileReceived"                  
+                    mcc-bind-keys="ctrl-s"
+                    bind-keys-ctrl-s="save"
+                    ng-model="data.content"
+                    ></textarea>
+        </div>
 
-        <button class="btn btn-info" ng-click="cancel()">{{"CLOSE"| translate}}</button>
+        <br><br>
+        <p>
 
-        <button class="btn btn-primary" ng-click="editorACE = !editorACE">{{"ACE_TEXTAREA"| translate}}</button>
+          <button class="btn btn-primary" ng-click="save()">{{"SAVE"| translate}}</button>
 
-      </p>
-    </div>    
-    <!-- figure editor -->
-    <mcc-editor-figure         
-         figure-receive="figureSubmitToEditor"
-         figure-save="fileSaveCallback"
-         figure-cancel="figureCancel"
-         ng-show="show == 'figure'">           
-    </mcc-editor-figure>
-    
+
+          <!-- <button class="btn btn-primary" ng-click="indent()">{{"INDENT"| translate}}</button> -->
+
+          <button class="btn btn-info" ng-click="cancel()">{{"CLOSE"| translate}}</button>
+
+          <button class="btn btn-primary" ng-click="editorACE = !editorACE">{{"ACE_TEXTAREA"| translate}}</button>
+
+        </p>
+      </div>    
+      <!-- figure editor -->
+      <mcc-editor-figure         
+        figure-receive="figureSubmitToEditor"
+        figure-save="fileSaveCallback"
+        figure-cancel="figureCancel"
+        ng-show="show == 'figure'">           
+      </mcc-editor-figure>
+
+    </div>
+
   </div>
-
 </div>
