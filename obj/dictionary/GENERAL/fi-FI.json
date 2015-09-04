@@ -46,5 +46,7 @@
     "YES": "Kyll\u00e4",
     "YOUR_EMAIL": "S\u00e4hk\u00f6postiosoitteesi",
     "YOUR_NAME": "Nimesi",
-    "NOT_IMPLEMENTED": "Ei viel\u00e4 implementoitu."
+    "NOT_IMPLEMENTED": "Ei viel\u00e4 implementoitu.",
+    "INDENT": "Sisenn\u00e4",
+    "MAKE": "Tee"
 }

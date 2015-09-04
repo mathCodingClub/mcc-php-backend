@@ -5,6 +5,7 @@
         "DELETED_OK": "Data removed successfully.",
         "DOES_NOT_EXIST": "Data page does not exist",
         "GET_OK": "Data fetched successfully.",
+        "MODIFY_TEMPLATE_TITLE": "Modify page contents",
         "UPDATED_OK": "Data updated successfully."
     }
 }
