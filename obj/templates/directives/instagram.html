@@ -15,7 +15,7 @@
       </p>
 
       <p>
-        <img src="{{value.image}}" class="embed-media" ng-show="value.type != 'video'">
+        <img src="{{value.image}}" class="mcc-embed-media-center" ng-show="value.type != 'video'">
       </p>
 
       <!--
@@ -27,7 +27,7 @@
       
       -->
 
-      <div style="max-width: 100%; width: 500px; overflow: hidden;" ng-show="value.type == 'video'" class="embed-media">
+      <div style="max-width: 100%; width: 500px; overflow: hidden;" ng-show="value.type == 'video'" class="mcc-embed-media-center">
         <video controls name="media" poster="{{value.image}}">        
           <source src="{{value.video.url}}" 
                   type="video/mp4"/>
