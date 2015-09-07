@@ -23,6 +23,10 @@
   </div>     
 
   <div class="list-group-item">          
+    <div ng-show="news.ingress.length > 5" style="font-size: 120%; font-style: italic;">
+      <div ng-bind-html="news.ingress" class="mcc-ingress">
+      </div>                    
+    </div>
     <div class="media-body mcc-news mcc-nice-width" mcc-angular-expr="news.contents" angular-expr-wrap="div">
     </div>
   </div>
