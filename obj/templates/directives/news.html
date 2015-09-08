@@ -40,7 +40,7 @@
         </div>
       </div>
       <div ng-show="item.ingress.length > 5 && $index < 10">
-        <div ng-bind-html="item.ingress" class="mcc-ingress">
+        <div mcc-angular-expr="item.ingress" class="mcc-ingress">
         </div>                    
         <b>{{'NEWS.READ_MORE'| translate}}!</b>            
         <i class="fa fa-chevron-right pull-right"></i>
