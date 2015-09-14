@@ -5,20 +5,23 @@
 <!-- @NG-INIT: isInitialized=false; -->
 <!-- @LOADING-SPINNER: isInitialized -->
 
-<div ng-show="isInitialized">
+<div ng-show="isInitialized" 
+     mcc-pagination="atTheEnd" 
+     force-scroll
+     parent=".scrollable-content">
 
   <div ng-show="$root.isLoggedIn" class="list-group-item">
     <a href="#mcc.overlayEditorNews" toggle="on" class="btn btn-primary">{{'NEWS.ADD'| translate}}</a>        
     <a href="" class="btn btn-danger" ng-click="refresh()">{{'REFRESH'| translate}}</a>
   </div>
 
-  <div ng-repeat="(key, value) in news.data | groupBy: 'year' | reverse" mcc-pagination="atTheEnd">
+  <div ng-repeat="(key, value) in news.data | groupBy: 'year' | reverse">
     <h2 class="list-group-item mcc-sub-title">{{value[0].year}}</h2>
     <mcc-link ng-repeat="item in value" 
-       ng-class="{'mcc-draft': !item.published}"
-       ng-show="item.published || $parent.isLoggedIn" 
-       no-class
-       class="list-group-item hand" route="news/{{item.id}}">
+              ng-class="{'mcc-draft': !item.published}"
+              ng-show="item.published || $parent.isLoggedIn" 
+              no-class
+              class="list-group-item hand" route="news/{{item.id}}">
       <div>             
         <b>{{item.title}}</b>              
         <i class="fa fa-chevron-right pull-right"></i>  
@@ -45,7 +48,7 @@
         <b>{{'NEWS.READ_MORE'| translate}}!</b>            
         <i class="fa fa-chevron-right pull-right"></i>
       </div>
-    </a>      
+    </mcc-link>
   </div>
 
   <div ng-show="news.pagination.isLast" class="list-group-item text-center">

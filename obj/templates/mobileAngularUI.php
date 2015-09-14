@@ -12,10 +12,10 @@ class mobileAngularUI {
     print "<!DOCTYPE html>\n<html><head>";
     print annotations::embed(__DIR__ . '/mobileAngularUI/meta.html', self::$sa);
     print '<script> var CONFIG = {' .
-            ' nav: ' . json_encode(self::$sa['nav'], JSON_PRETTY_PRINT) .
-            ', sideBarLeftBottomImage: ' . json_encode(self::$sa['sideBarLeftBottomImage'], JSON_PRETTY_PRINT) .
-            ', logoTitle: ' . json_encode(self::$sa['logoTitle'], JSON_PRETTY_PRINT) .
-            ' };</script>' . PHP_EOL . PHP_EOL;
+        ' nav: ' . json_encode(self::$sa['nav'], JSON_PRETTY_PRINT) .
+        ', sideBarLeftBottomImage: ' . json_encode(self::$sa['sideBarLeftBottomImage'], JSON_PRETTY_PRINT) .
+        ', logoTitle: ' . json_encode(self::$sa['logoTitle'], JSON_PRETTY_PRINT) .
+        ' };</script>' . PHP_EOL . PHP_EOL;
     new html5include(getcwd() . '/' . self::$sa['include']);
     if (array_key_exists('headTemplateUrl', self::$sa)) {
       print file_get_contents(getcwd() . '/' . self::$sa['headTemplateUrl']);
@@ -27,7 +27,9 @@ class mobileAngularUI {
       self::convertTemplate($template, $controller);
     };
     directives::preload($fun);
-
+    if (array_key_exists('templates', self::$sa) && self::$sa['templates']['preload']) {
+      directives::preload($fun, self::$sa['templates']['prefix'], self::$sa['templates']['path']);
+    }
     print '<toaster-container toaster-options="{\'time-out\': 3000,\'spinner\':false}"></toaster-container>';
     print annotations::embed(__DIR__ . '/mobileAngularUI/sideBars.html', self::$sa);
     print '<div class="app">';
@@ -57,33 +59,48 @@ class mobileAngularUI {
     if (\mcc\obj\templates\annotations::hasAnnotation('BLANK', $template)) {
       return;
     }
-    // if there is title, this is regular page            
+    // if there is title, this is a regular page
     if (\mcc\obj\templates\annotations::hasAnnotation('TITLE', $template)) {
       $template = self::pageTemplate($template);
     }
-    // controllers
-    if ($simple = annotations::getValue('MCC-SIMPLE-TEMPLATE', $template, false)) {
-      $restrict = 'AE';
-      if ($setRestrict = annotations::getValue('RESTRICT', $template, false)) {
-        $restrict = $setRestrict;
+    // controller    
+    if ($directive = annotations::getValue('DIRECTIVE', $template, false)) {
+      $restrict = annotations::getValue('RESTRICT', $template, 'AE');
+      $namespace = annotations::getValue('NAMESPACE', $template, 'mcc');
+      $conf = array('NAME' => $directive, 'RESTRICT' => $restrict,
+          'NAMESPACE' => $namespace,
+          'UCFNAME' => ucfirst($directive),
+          'SCOPE' => '',
+          'SERVICES' => '',
+          'SERVICES-VARS' => '',
+          'SERVICES-SCOPE' => '');
+      if ($scope = annotations::getValue('SCOPE', $template)) {
+        $map = explode(',', $scope);
+        $scopeArray = array();
+        foreach ($map as $key) {
+          array_push($scopeArray, $key . ": '=$key'");
+        }
+        $conf['SCOPE'] = "\nscope: {" . implode(",\n", $scopeArray) . '},';
       }
-      $conf = array('NAME' => $simple, 'RESTRICT' => $restrict, 'UCFNAME' => ucfirst($simple));
-      $controller = annotations::embed(__DIR__ . '/custom/mccSimpleTemplate.js', $conf);
-    }
-    if ($directive = annotations::getValue('MCC-DIRECTIVE', $template, false)) {
-      $restrict = 'AE';
-      if ($setRestrict = annotations::getValue('RESTRICT', $template, false)) {
-        $restrict = $setRestrict;
+      if ($ann = annotations::getValue('SERVICES', $template)) {
+        $services = array();
+        $servicesVars = array();
+        $servicesScope = array();
+        
+        $map = explode(';', $ann);        
+        foreach ($map as $key){
+          list($var,$ser) = explode('=',$key);          
+          array_push($services, trim($ser));
+          $serviceVar = uniqid("autoload");
+          array_push($servicesVars,$serviceVar);
+          array_push($servicesScope,'$scope.' . trim($var) . ' = ' . 
+              $serviceVar . ";\n");
+        }
+        $conf['SERVICES'] = "'" . implode('\',\'', $services) . "',";
+        $conf['SERVICES-VARS']= ',' . implode(',',$servicesVars);
+        $conf['SERVICES-SCOPE'] = implode('', $servicesScope);
       }
-      $conf = array('NAME' => $directive, 'RESTRICT' => $restrict, 'UCFNAME' => ucfirst($directive));
-      // create Scope string
-      $mapValues = explode(',',annotations::getValue('MAP', $template));
-      $scopeArray = array();
-      foreach ($mapValues as $key){
-        array_push($scopeArray,$key . ": '=$key'");
-      }
-      $conf['SCOPE-MAP'] = '{' . implode(",\n",$scopeArray) . '}';      
-      $controller = annotations::embed(__DIR__ . '/custom/mccDirectiveScopeMap.js', $conf);      
+      $controller = annotations::embed(__DIR__ . '/custom/mccDirectiveTemplate.js', $conf);
     }
   }
 
@@ -100,9 +117,9 @@ class mobileAngularUI {
       $top .= '<div ng-init="' . preg_replace('#\r|\n#', '', $ngInit) . '">';
     }
     $top .= '<div class="scrollable scrollable-content">' .
-            '<div class="list-group">' .
-            '<div class="list-group-item">' .
-            '<h1>' . annotations::getValue('TITLE', $template);
+        '<div class="list-group">' .
+        '<div class="list-group-item">' .
+        '<h1>' . annotations::getValue('TITLE', $template);
     // add logo
     if ($logo = annotations::getValue('LOGO', $template, false)) {
       $top .= '<i class="pull-right fa ' . $logo . ' feature-icon text-primary"></i>';
@@ -115,16 +132,16 @@ class mobileAngularUI {
     // code editor button
     if ($codeEditor = annotations::hasAnnotation('DATABASE-TEMPLATE', $template)) {
       $top .= '<div class="list-group-item" ng-show="$root.isLoggedIn">' .
-              '<button class="btn btn-primary" ng-click="showCodeEditor()">{{\'MODIFY_TEMPLATE\'| translate}}</button> ' .
-              '<button class="btn btn-danger" ng-click="refresh()">{{\'REFRESH\'| translate}}</button>' .
-              '</div>';
+          '<button class="btn btn-primary" ng-click="showCodeEditor()">{{\'MODIFY_TEMPLATE\'| translate}}</button> ' .
+          '<button class="btn btn-danger" ng-click="refresh()">{{\'REFRESH\'| translate}}</button>' .
+          '</div>';
     }
     // loading spinner
     if ($loadingSpinner = annotations::getValue('LOADING-SPINNER', $template, false)) {
       $top .='<div ng-hide="' . $loadingSpinner . '"' .
-              ' class="manual-loading scrollable scrollable-content"' .
-              ' style="background-color: white;">' .
-              ' <i class="fa fa-spinner fa-spin loading-spinner"></i></div>';
+          ' class="manual-loading scrollable scrollable-content"' .
+          ' style="background-color: white;">' .
+          ' <i class="fa fa-spinner fa-spin loading-spinner"></i></div>';
     }
     // container
     if ($hasContainer = !annotations::hasAnnotation('NO-CONTAINER', $template)) {
@@ -148,12 +165,13 @@ class mobileAngularUI {
     }
     if ($codeEditor) {
       $bottom .= '<div overlay="mcc.overlayEditorData">' .
-              '<div mcc-editor-data overlay-data="dataObject"></div></div>';
+          '<div mcc-editor-data overlay-data="dataObject"></div></div>';
     }
     if ($isolatedScope) {
       $bottom .= '</div>';
-    }    
-    return $top . $template . $bottom;
+    }
+    $template = $top . $template . $bottom;
+    return $template;
   }
 
   static private function setServerDependentParameters() {

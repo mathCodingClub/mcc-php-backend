@@ -2,7 +2,6 @@
 <!-- @SUBTITLE: {{'USER.ADMIN_SUBTITLE' | translate}} -->
 <!-- @LOGO: fa-user-secret -->
 <!-- @NO-CONTAINER -->
-<!-- @ISOLATED-SCOPE -->
 <!-- @NG-INIT: 
 isInitialized = false; 
 euser.username = '';
@@ -14,7 +13,7 @@ password.first = '';
 password.second = '';
 -->
 <!-- @LOADING-SPINNER: isInitialized -->
-<!-- @MCC-SIMPLE-TEMPLATE: userAdminSelected -->
+<!-- @DIRECTIVE: userAdminSelected -->
 
 <div 
   mcc-crud-repo="rest/mcc/root/users/user"

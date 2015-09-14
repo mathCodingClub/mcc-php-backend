@@ -4,7 +4,7 @@
 <!-- @NO-CONTAINER -->
 <!-- @NG-INIT: isInitialized=false; -->
 <!-- @LOADING-SPINNER: isInitialized -->
-<!-- @MCC-SIMPLE-TEMPLATE: userAdmin -->
+<!-- @DIRECTIVE: userAdmin -->
 
 <div mcc-loading-var="isInitialized"
      mcc-ajax-scope-var="ajax"
@@ -15,7 +15,7 @@
     <i class="fa fa-chevron-right pull-right"></i>
   </mcc-link>
 
-  <div class="mcc-sidebar-title  @CONTAINER_CLASS">
+  <div class="mcc-sidebar-title @CONTAINER_CLASS">
     Select user to modify
   </div>
 
@@ -24,6 +24,5 @@
       {{value.givenName}} {{value.familyName}}
       <i class="fa fa-chevron-right pull-right"></i>
     </mcc-link>
-
   </div>
 </div>

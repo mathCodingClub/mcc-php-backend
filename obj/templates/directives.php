@@ -4,9 +4,13 @@ namespace mcc\obj\templates;
 
 class directives {
 
-  static public function preload($translator = null, $prefix = 'mcc.') {
+  static public function preload($translator = null, $prefix = 'mcc.', $path = null) {
 
-    $files = glob(__DIR__ . '/directives/*.html');
+    if (is_null($path)){
+      $path = __DIR__ . '/directives/*.html';
+    }
+    
+    $files = glob($path);
     foreach ($files as $file) {
       preg_match('@/([a-zA-Z0-9.]*)(.html)@', $file, $temp);
       $dir = $temp[1];
